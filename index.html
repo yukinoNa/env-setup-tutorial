@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>环境搭建教程 · 把 AI 短片生产线装到自己电脑上</title>
+<style>
+  :root{
+    --bg:#f7f7f5; --card:#ffffff; --ink:#1a1a1a; --muted:#666;
+    --line:#e3e3df; --accent:#0f6b5c; --accent-soft:#e8f2ef;
+    --code-bg:#1e2422; --code-ink:#dfe8e5; --warn:#a8412c; --warn-soft:#fbf0ec;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  header{
+    background:linear-gradient(160deg,#0f6b5c,#0a4a40); color:#fff;
+    padding:56px 24px 44px;
+  }
+  .wrap{max-width:940px;margin:0 auto}
+  header h1{margin:0 0 12px;font-size:32px;letter-spacing:-.5px;font-weight:700}
+  header p{margin:0;opacity:.86;font-size:15px}
+  header .meta{margin-top:20px;font-size:13px;opacity:.7}
+  nav{
+    position:sticky;top:0;z-index:10;background:rgba(247,247,245,.94);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;gap:20px;overflow-x:auto;padding:12px 24px;font-size:14px}
+  nav a{color:var(--muted);text-decoration:none;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent}
+  nav a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+  main{max-width:940px;margin:0 auto;padding:8px 24px 80px}
+  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:none}
+  h2{font-size:23px;margin:0 0 8px;letter-spacing:-.3px}
+  h2 .num{color:var(--accent);font-variant-numeric:tabular-nums;margin-right:10px;opacity:.5}
+  .lead{color:var(--muted);margin:0 0 24px;font-size:15px}
+  h3{font-size:17px;margin:32px 0 10px}
+  p{margin:12px 0}
+  ul,ol{margin:12px 0;padding-left:22px}
+  li{margin:6px 0}
+  code{background:#eeeee9;padding:2px 6px;border-radius:4px;font-size:.9em;
+       font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+  .rules{display:grid;gap:12px;margin-top:8px}
+  .rule{
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:16px 18px;display:flex;gap:14px;
+  }
+  .rule b.n{
+    color:var(--accent);font-size:15px;font-variant-numeric:tabular-nums;
+    flex:0 0 22px;opacity:.55;
+  }
+  .rule p{margin:0;font-size:15px}
+  .rule .why{display:block;color:var(--muted);font-size:13.5px;margin-top:4px}
+  pre{
+    position:relative;background:var(--code-bg);color:var(--code-ink);
+    padding:18px;border-radius:10px;overflow-x:auto;font-size:13px;line-height:1.65;
+    font-family:ui-monospace,SFMono-Regular,Consolas,monospace;margin:14px 0;
+  }
+  pre .k{color:#7fd1b9}
+  .copy{
+    position:absolute;top:8px;right:8px;background:rgba(255,255,255,.14);color:#cfe;
+    border:none;border-radius:6px;padding:5px 10px;font-size:11px;cursor:pointer;
+    font-family:inherit;opacity:.7
+  }
+  .copy:hover{opacity:1;background:rgba(255,255,255,.24)}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--accent-soft);font-weight:600;font-size:13.5px}
+  td:first-child{white-space:nowrap}
+  .flow{
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:22px;font-family:ui-monospace,Consolas,monospace;font-size:13px;
+    line-height:2;overflow-x:auto;color:#333
+  }
+  .flow b{color:var(--accent)}
+  .warn{
+    background:var(--warn-soft);border-left:3px solid var(--warn);
+    padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:14.5px;
+  }
+  .warn b{color:var(--warn)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:680px){.grid2{grid-template-columns:1fr}}
+  .pill{display:inline-block;background:var(--accent-soft);color:var(--accent);
+        border-radius:20px;padding:2px 10px;font-size:12.5px;margin-right:6px}
+  footer{padding:40px 24px 60px;color:var(--muted);font-size:13.5px;text-align:center;
+         border-top:1px solid var(--line)}
+  .files{list-style:none;padding:0;margin:16px 0}
+  .files li{background:var(--card);border:1px solid var(--line);border-radius:8px;
+            padding:12px 16px;margin:8px 0;font-size:14.5px}
+  .files li b{font-family:ui-monospace,Consolas,monospace;color:var(--accent)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>环境搭建教程</h1>
+    <p>把 AI 短片生产线装到你自己的电脑上 · 模块一 Harness（DSH）／ 模块二 视频生成平台（ComfyUI / LibTV）</p>
+    <div class="meta">《AI短片工作流教程》的前置章 ｜ 面向新手 ｜ 每一步都有验收</div>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#intro">总览</a>
+    <a href="#prep">开工前备齐</a>
+    <a href="#m1">模块一 · Harness</a>
+    <a href="#m2">模块二 · 视频平台</a>
+    <a href="#accept">三条验收线</a>
+    <a href="#cheat">速查卡</a>
+    <a href="#files">文件索引</a>
+  </div>
+</nav>
+
+<main>
+
+<section id="intro">
+  <h2><span class="num">01</span>这套教程解决什么</h2>
+  <p class="lead">一句话：<b>会思考的调度员 + 会动手的工人，各自装到你电脑上。</b></p>
+
+  <div class="flow">
+模块一  <b>Harness（以 DSH 为例）</b>        ← 会思考的调度员<br>
+        "让 AI 能真的操作你这台电脑"<br>
+             ↓ 用 HTTP 打通<br>
+模块二  <b>视频生成平台（ComfyUI / LibTV）</b> ← 会动手的工人<br>
+        "让画面和声音真的生成出来"<br>
+             ↓<br>
+已有教程《AI短片工作流教程》：分镜 → 提示词 → 出片
+  </div>
+
+  <div class="grid2" style="margin-top:20px">
+    <div class="rule">
+      <div>
+        <p><b>模块一 · Harness</b>
+        <span class="why">Harness 是什么 → 装 DSH → 接模型 → 跑通第一个任务 → 以后遇到问题怎么指挥它自己排查。</span></p>
+      </div>
+    </div>
+    <div class="rule">
+      <div>
+        <p><b>模块二 · 视频平台</b>
+        <span class="why">云端还是本地 → 装 ComfyUI → 模型放哪 → 跑出第一张图 → 接上 H3 出带声音的视频 → 工作流与云端配合。</span></p>
+      </div>
+    </div>
+  </div>
+
+  <p>两个模块都是 <span class="pill">0–5 六节</span>第 0 节只讲"这是什么、为什么"，不装任何东西；第 1–5 节一步一节，每节结尾有一个验收。</p>
+
+  <div class="warn">
+    <b>看到「✅ 验收」就停下来，做一遍再往下走。</b>跳过验收往下赶，是新手最常翻车的方式。
+  </div>
+</section>
+
+<section id="prep">
+  <h2><span class="num">02</span>开工前先备齐这些</h2>
+
+  <h3>硬件</h3>
+  <table>
+    <tr><th>项</th><th>要求</th><th>说明</th></tr>
+    <tr><td>系统</td><td>Windows 10 / 11（推荐）或 macOS</td><td>ComfyUI 三平台都有，但视频生成基本只认 NVIDIA 显卡</td></tr>
+    <tr><td>显卡</td><td>NVIDIA 独显，<b>显存 8G 起</b></td><td>12–16G 舒服，24G 才谈得上顺畅。显存 8G 以下或只有核显的，本地方案先放一放，直接用云端平台</td></tr>
+    <tr><td>内存</td><td>16G 起，32G 更稳</td><td>文本编码器一个文件就 15G 以上，内存越大越不容易崩</td></tr>
+    <tr><td>硬盘</td><td><b>留 100G 以上</b></td><td>模型文件一个几十 G，用独立硬盘更省心</td></tr>
+    <tr><td>网络</td><td>能访问模型下载源</td><td>国内建议走 <code>hf-mirror.com</code> 镜像，下载是最耗时的一步</td></tr>
+  </table>
+
+  <p>不知道自己显卡是什么？任务管理器 → 性能 → GPU，看型号和"专用 GPU 内存"。或者直接把这个问题丢给 DSH：「我的显卡是 XXX，显存 XXG，能跑 ComfyUI 吗」</p>
+
+  <h3>账号与密钥</h3>
+  <table>
+    <tr><th>要什么</th><th>去哪拿</th><th>什么时候用</th></tr>
+    <tr><td>DeepSeek API Key</td><td>platform.deepseek.com</td><td>模块一：接模型用。密钥只显示一次，当场存好</td></tr>
+    <tr><td>LibTV 账号（可选）</td><td>liblib.tv</td><td>模块二：云端平台，没显卡也能出片</td></tr>
+    <tr><td>网盘素材</td><td>〈网盘链接待补〉</td><td>模块二：模型与工作流文件</td></tr>
+  </table>
+
+  <div class="warn">
+    <b>ComfyUI 本身不含任何模型</b>，它只是一张画布。模型文件和工作流文件统一放在网盘，下载后按模块二第 3 节的表格逐个放进对应目录。<b>放错目录是新手第一大坑</b>。
+  </div>
+</section>
+
+<section id="m1">
+  <h2><span class="num">03</span>模块一 · Harness（以 DSH 为例）</h2>
+  <p class="lead">完整正文见 <code>01_Harness_DSH.md</code>。这里是路线图。</p>
+
+  <div class="rules">
+    <div class="rule"><b class="n">0</b><div><p>harness 是什么
+      <span class="why">三层关系：模型（会思考，但被关在盒子里）→ harness（给它装上手、记忆、约束、调度）→ 应用（桌面端 / 浏览器界面）。模型是发动机，harness 是整台车。</span></p></div></div>
+    <div class="rule"><b class="n">1</b><div><p>装之前准备两样东西
+      <span class="why">Node.js（nodejs.org 下 LTS 版）＋ 一个 DeepSeek API Key（platform.deepseek.com）。装完用 <code>node -v</code> 和 <code>npm -v</code> 验证。</span></p></div></div>
+    <div class="rule"><b class="n">2</b><div><p>三种装法，新手选第一种
+      <span class="why">A 桌面端（官网下载安装包，不需要命令行，推荐）／ B 命令行 npx（<code>npx @deepseek-ai/dsh web</code>）／ C 源码运行（要改代码才用）。</span></p></div></div>
+    <div class="rule"><b class="n">3</b><div><p>第一次启动与接入模型
+      <span class="why">浏览器打开 <code>http://127.0.0.1:3080</code> → 设置 → 模型 → 粘贴 API Key 保存。保存后立刻生效，不用重启。</span></p></div></div>
+    <div class="rule"><b class="n">4</b><div><p>跑通第一个任务（这里有个必踩的坑）
+      <span class="why">全新的网页界面没有选中工作区时，输入框是灰的、点不动——不是软件坏了。先「选择工作区」添加一个文件夹并选中它。</span></p></div></div>
+    <div class="rule"><b class="n">5</b><div><p>以后遇到问题怎么办（本模块重点）
+      <span class="why">不要自己百度报错，把报错原样丢给 DSH。这一节给了 5 个可直接复制的提问模板和三条提问纪律。</span></p></div></div>
+  </div>
+
+  <h3>必须记住的一条</h3>
+  <p>权限三档，用大白话记：</p>
+  <table>
+    <tr><th>档位</th><th>能做什么</th><th>什么时候用</th></tr>
+    <tr><td>read-only</td><td>只看不改</td><td>最安全，先用它熟悉</td></tr>
+    <tr><td>workspace-write</td><td>能改工作区里的文件</td><td>日常干活用这个</td></tr>
+    <tr><td>danger-full-access</td><td>全盘可动</td><td>全自动时才用，要知道风险</td></tr>
+  </table>
+
+  <div class="warn">
+    <b>DSH 处于开发者预览阶段</b>，官方明确说会有破坏兼容性的变更。装之前先打开官方快速开始页面对一眼，别照着半年前的截图装。
+  </div>
+</section>
+
+<section id="m2">
+  <h2><span class="num">04</span>模块二 · 视频生成平台（ComfyUI / LibTV）</h2>
+  <p class="lead">完整正文见 <code>02_视频平台_ComfyUI与LibTV.md</code>。这里是路线图。</p>
+
+  <div class="rules">
+    <div class="rule"><b class="n">0</b><div><p>两类平台，不是二选一
+      <span class="why">云端（LibTV 这类，打开网页就用、按积分付费、模型最新）／ 本地（ComfyUI，跑在自己显卡上、无限出片、数据不出本机）。本地跑量和控细节，云端追新模型出单条。</span></p></div></div>
+    <div class="rule"><b class="n">1</b><div><p>先看你有没有这块显卡
+      <span class="why">这是唯一可能直接劝退的一节。显存 8G 以下或只有核显，先用云端平台，不要硬上本地。</span></p></div></div>
+    <div class="rule"><b class="n">2</b><div><p>把 ComfyUI 装到电脑上
+      <span class="why">A 桌面版（推荐新手，自动管 Python）／ B 便携版（Windows 解压即用，整个文件夹能搬走）／ C 源码（不展开）。启动后访问 <code>http://127.0.0.1:8188</code>。</span></p></div></div>
+    <div class="rule"><b class="n">3</b><div><p>装模型，跑出第一张图
+      <span class="why">模型按类别放目录（checkpoints / diffusion_models / text_encoders / vae / loras），放完刷新界面才能在下拉框里看到。</span></p></div></div>
+    <div class="rule"><b class="n">4</b><div><p>接上视频生成（MiniMax H3 本地版）
+      <span class="why">ComfyUI 0.30.0+ 的模板库里选 MiniMax H3；Ref2VA / I2VA / FL2VA 三种模式对应不同镜头；权重两个文件不通用。</span></p></div></div>
+    <div class="rule"><b class="n">5</b><div><p>工作流怎么用，云端怎么配合
+      <span class="why">把网盘里的 .json 直接拖进 ComfyUI 窗口就能还原整张图；LibTV 负责创意验证和最新模型，ComfyUI 负责批量与一致性。</span></p></div></div>
+  </div>
+
+  <h3>模型放哪（最容易出错的一张表）</h3>
+  <table>
+    <tr><th>类型</th><th>目录（相对 ComfyUI 根目录）</th><th>用来做什么</th></tr>
+    <tr><td>大模型 / 检查点</td><td><code>models/checkpoints/</code></td><td>出图的主模型</td></tr>
+    <tr><td>视频扩散模型</td><td><code>models/diffusion_models/</code></td><td>视频生成的主模型</td></tr>
+    <tr><td>文本编码器</td><td><code>models/text_encoders/</code></td><td>把提示词翻译成模型能懂的东西</td></tr>
+    <tr><td>VAE</td><td><code>models/vae/</code></td><td>决定画面色彩与解码质量</td></tr>
+    <tr><td>LoRA</td><td><code>models/loras/</code></td><td>风格微调或加速</td></tr>
+    <tr><td>自定义节点</td><td><code>custom_nodes/</code></td><td>装扩展功能</td></tr>
+    <tr><td>工作流 .json</td><td>不用放目录</td><td><b>直接拖进 ComfyUI 界面</b></td></tr>
+  </table>
+
+  <p>两个容易漏的细节：<b>视频 VAE 有 int8 量化版和 fp16 全精度版两套</b>，显存紧张（8G 卡）优先用 int8，16G 以上用 fp16 画质更好；<b>Turbo LoRA</b> 放 <code>models/loras/</code>，用来 8 步出小样，别用正式步数去试构图。</p>
+
+  <p>下载走国内镜像更快：模型发布在 <code>Comfy-Org/MiniMax-H3</code> 仓库，把地址里的 <code>huggingface.co</code> 换成 <code>hf-mirror.com</code> 即可。光文本编码器一个文件就 15.7 GB，下载慢是正常的，断了续传。</p>
+
+  <h3>时长不是整数（排分镜前必须知道）</h3>
+  <p>视频时长会吸附到一个固定帧网格，请求 4 秒实际得到的是 3.75 秒或 4.46 秒：</p>
+  <table>
+    <tr><th>你请求</th><th>实际帧数</th><th>实际时长</th></tr>
+    <tr><td>4s</td><td>90 或 107</td><td>3.75s 或 4.46s</td></tr>
+    <tr><td>5s</td><td>124</td><td>5.17s</td></tr>
+    <tr><td>6s</td><td>141</td><td>5.88s</td></tr>
+    <tr><td>8s</td><td>192</td><td>8.00s</td></tr>
+  </table>
+  <p>把分镜表加起来时一定要留余量，否则最后一定超时。</p>
+
+  <div class="warn">
+    <b>辟谣：LibTV 没有"本地部署版"。</b>它是纯云端平台（网页版 + 微软商店的 Windows 客户端）。网上流传的"LibTV 本地部署 / 满血破解版"不要照做——来路不明、有安全风险，也违反服务条款。想本地化就用 ComfyUI，这是两回事。
+  </div>
+</section>
+
+<section id="accept">
+  <h2><span class="num">05</span>三条验收线</h2>
+  <p class="lead">全做完的标准不是"看完了"，是这三条都能做到。</p>
+
+  <div class="rules">
+    <div class="rule"><b class="n">✓</b><div><p>模块一
+      <span class="why">我能让 DSH 读到我指定文件夹里的文件，并让它帮我改一个文件。</span></p></div></div>
+    <div class="rule"><b class="n">✓</b><div><p>模块二（出图）
+      <span class="why">我能用 ComfyUI 出一张图，并保存一份工作流。</span></p></div></div>
+    <div class="rule"><b class="n">✓</b><div><p>模块二（出视频）
+      <span class="why">我能跑出一条 4 秒左右、<b>带声音</b>的视频片段。</span></p></div></div>
+  </div>
+
+  <p>三条都过了，就可以进《AI短片工作流教程》，开始做真正的片子了。</p>
+</section>
+
+<section id="cheat">
+  <h2><span class="num">06</span>速查卡</h2>
+  <p class="lead">所有官方入口都在这里。这个表比百度有用。</p>
+
+  <table>
+    <tr><th>需要什么</th><th>地址</th><th>什么时候用</th></tr>
+    <tr><td>DSH 官网下载</td><td>deepseek.com/zh/harness/</td><td>模块一第 2 节，桌面端安装包</td></tr>
+    <tr><td>DSH 官方快速开始</td><td>deepseek-harness.github.io/deepseek-harness/guide/quickstart</td><td>装之前对一眼，唯一必存的书签</td></tr>
+    <tr><td>DSH 模型配置</td><td>deepseek-harness.github.io/deepseek-harness/guide/providers</td><td>要接别的模型或自有接口时</td></tr>
+    <tr><td>DSH 源码仓库</td><td>github.com/deepseek-ai/deepseek-harness</td><td>看安全说明、提问题、源码安装</td></tr>
+    <tr><td>DeepSeek API Key</td><td>platform.deepseek.com</td><td>模块一第 1 节</td></tr>
+    <tr><td>Node.js</td><td>nodejs.org</td><td>模块一第 1 节，选 LTS</td></tr>
+    <tr><td>ComfyUI 下载</td><td>comfy.org/download</td><td>模块二第 2 节</td></tr>
+    <tr><td>ComfyUI 中文文档</td><td>docs.comfy.org/zh/</td><td>任何界面措辞对不上时</td></tr>
+    <tr><td>ComfyUI 系统要求</td><td>docs.comfy.org/zh/installation/system_requirements</td><td>模块二第 1 节，先确认能装</td></tr>
+    <tr><td>ComfyUI 故障排查</td><td>docs.comfy.org/zh/troubleshooting/overview</td><td>报错、显存不够、跑得慢</td></tr>
+    <tr><td>LibTV（云端）</td><td>liblib.tv</td><td>没有显卡时的替代方案</td></tr>
+    <tr><td>模型下载镜像</td><td>hf-mirror.com</td><td>国内下载模型，仓库 Comfy-Org/MiniMax-H3</td></tr>
+  </table>
+
+  <h3>遇到问题的三条纪律</h3>
+  <ol>
+    <li><b>报错贴原文</b>，不要转述成"它说错了"；</li>
+    <li><b>说清你想要什么结果</b>，别只说哪里不对；</li>
+    <li><b>一次只解决一个问题</b>，别把三件事塞进一句话。</li>
+  </ol>
+</section>
+
+<section id="files">
+  <h2><span class="num">07</span>文件索引</h2>
+  <ul class="files">
+    <li><b>README.md</b> — 总览：两个模块、阅读顺序、硬件清单、网盘素材、验收标准</li>
+    <li><b>01_Harness_DSH.md</b> — 模块一全文：harness 是什么、装 DSH、接模型、跑通任务、怎么指挥它排错</li>
+    <li><b>02_视频平台_ComfyUI与LibTV.md</b> — 模块二全文：平台选型、装 ComfyUI、模型落位、H3 视频、工作流、云端配合</li>
+    <li><b>index.html</b> — 本页，浏览器直接打开</li>
+  </ul>
+
+  <h3>和已有教程的关系</h3>
+  <div class="grid2">
+    <div class="rule"><div><p><b>本教程</b><span class="why">把工具装到电脑上：会思考的调度员 + 会动手的工人。</span></p></div></div>
+    <div class="rule"><div><p><b>《AI短片工作流教程》</b><span class="why">把片子做出来：分镜 → 提示词 → 出片 → 后期 → 合规。</span></p></div></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  环境搭建教程 · 模块一 Harness（DSH）／ 模块二 视频生成平台（ComfyUI / LibTV）<br>
+  模型决定上限，环境决定你能不能用上那个上限。
+</footer>
+
+<script>
+document.querySelectorAll('pre .copy').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const pre = btn.parentElement;
+    const text = pre.innerText.replace(/^复制\s*/, '');
+    try {
+      await navigator.clipboard.writeText(text);
+      btn.textContent = '已复制';
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      btn.textContent = '已复制';
+    }
+    setTimeout(() => btn.textContent = '复制', 1400);
+  });
+});
+</script>
+</body>
+</html>
