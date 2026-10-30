@@ -4,103 +4,212 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>环境搭建教程 · 把 AI 短片生产线装到自己电脑上</title>
+<meta name="description" content="模块一 Harness（DSH）+ 模块二 视频生成平台（ComfyUI / LibTV），从零把 AI 短片生产线装到自己电脑上。">
 <style>
   :root{
-    --bg:#f7f7f5; --card:#ffffff; --ink:#1a1a1a; --muted:#666;
-    --line:#e3e3df; --accent:#0f6b5c; --accent-soft:#e8f2ef;
-    --code-bg:#1e2422; --code-ink:#dfe8e5; --warn:#a8412c; --warn-soft:#fbf0ec;
+    --bg:#f4f6fd; --card:#ffffff; --ink:#1b2340; --muted:#5f6785;
+    --line:#dce2f3; --accent:#3d4fa8; --accent-2:#6b7fd4;
+    --accent-soft:#eaedfa; --deep:#2b3470; --deep2:#4a5aa8;
+    --code-bg:#1b2340; --code-ink:#dbe3fa;
+    --warn:#c0563f; --warn-soft:#fdf1ed;
+    --pink:#f2a0a8;
+    --shadow:0 2px 4px rgba(27,35,64,.05), 0 8px 24px rgba(27,35,64,.06);
+    --shadow-lg:0 4px 10px rgba(27,35,64,.08), 0 18px 48px rgba(27,35,64,.12);
   }
   *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
   body{
     margin:0; background:var(--bg); color:var(--ink);
-    font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;
+    font:16px/1.78 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;
     -webkit-font-smoothing:antialiased;
   }
-  header{
-    background:linear-gradient(160deg,#0f6b5c,#0a4a40); color:#fff;
-    padding:56px 24px 44px;
-  }
   .wrap{max-width:940px;margin:0 auto}
-  header h1{margin:0 0 12px;font-size:32px;letter-spacing:-.5px;font-weight:700}
-  header p{margin:0;opacity:.86;font-size:15px}
-  header .meta{margin-top:20px;font-size:13px;opacity:.7}
-  nav{
-    position:sticky;top:0;z-index:10;background:rgba(247,247,245,.94);
-    backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+
+  /* ---------- header ---------- */
+  header{
+    position:relative;overflow:hidden;
+    background:
+      radial-gradient(900px 400px at 82% 12%, rgba(107,127,212,.55), transparent 62%),
+      radial-gradient(700px 360px at 6% 92%, rgba(242,160,168,.20), transparent 60%),
+      linear-gradient(155deg,#242c63 0%,#33408a 48%,#4a5aa8 100%);
+    color:#fff; padding:54px 24px 0;
   }
-  nav .wrap{display:flex;gap:20px;overflow-x:auto;padding:12px 24px;font-size:14px}
-  nav a{color:var(--muted);text-decoration:none;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent}
-  nav a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+  .header-inner{display:flex;align-items:center;gap:36px;padding-bottom:56px}
+  .header-text{flex:1 1 auto;min-width:0}
+  .tag{
+    display:inline-block;font-size:12.5px;letter-spacing:.08em;
+    background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);
+    padding:4px 12px;border-radius:100px;margin-bottom:16px;backdrop-filter:blur(4px);
+  }
+  header h1{margin:0 0 10px;font-size:34px;letter-spacing:-.6px;font-weight:800;line-height:1.25}
+  header .sub{margin:0 0 18px;opacity:.9;font-size:15.5px}
+  header .meta{font-size:13px;opacity:.72;line-height:1.9}
+  .header-art{flex:0 0 auto;position:relative}
+  .header-art img{
+    display:block;width:186px;height:186px;border-radius:50%;
+    border:6px solid rgba(255,255,255,.92);
+    box-shadow:0 12px 34px rgba(11,16,40,.42), 0 0 0 1px rgba(255,255,255,.25);
+    background:#fff;
+    animation:bob 5s ease-in-out infinite;
+  }
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  .header-art .badge{
+    position:absolute;left:50%;bottom:-12px;transform:translateX(-50%);
+    white-space:nowrap;font-size:12px;padding:4px 12px;border-radius:100px;
+    background:#fff;color:var(--deep);font-weight:700;
+    box-shadow:0 6px 16px rgba(11,16,40,.28);
+  }
+  .wave{display:block;width:100%;height:56px;margin-bottom:-1px}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:20;background:rgba(244,246,253,.93);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;gap:22px;overflow-x:auto;padding:12px 24px;font-size:14px}
+  nav a{color:var(--muted);text-decoration:none;white-space:nowrap;padding:5px 0;border-bottom:2px solid transparent;transition:.18s}
+  nav a:hover{color:var(--accent);border-bottom-color:var(--accent-2)}
+
   main{max-width:940px;margin:0 auto;padding:8px 24px 80px}
-  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  section{padding:48px 0;border-bottom:1px solid var(--line)}
   section:last-of-type{border-bottom:none}
-  h2{font-size:23px;margin:0 0 8px;letter-spacing:-.3px}
-  h2 .num{color:var(--accent);font-variant-numeric:tabular-nums;margin-right:10px;opacity:.5}
+  h2{font-size:24px;margin:0 0 10px;letter-spacing:-.3px;display:flex;align-items:center;gap:12px}
+  h2 .num{
+    flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
+    width:38px;height:38px;border-radius:11px;font-size:14px;font-weight:800;
+    color:#fff;letter-spacing:0;
+    background:linear-gradient(145deg,var(--accent-2),var(--accent));
+    box-shadow:0 4px 12px rgba(61,79,168,.32), inset 0 1px 0 rgba(255,255,255,.35);
+  }
   .lead{color:var(--muted);margin:0 0 24px;font-size:15px}
-  h3{font-size:17px;margin:32px 0 10px}
+  h3{font-size:17.5px;margin:34px 0 10px;letter-spacing:-.1px}
+  h3::before{content:"◆";color:var(--accent-2);font-size:11px;margin-right:8px;vertical-align:2px}
   p{margin:12px 0}
   ul,ol{margin:12px 0;padding-left:22px}
   li{margin:6px 0}
-  code{background:#eeeee9;padding:2px 6px;border-radius:4px;font-size:.9em;
+  a{color:var(--accent)}
+  code{background:#eef1fb;color:#2b3470;padding:2px 6px;border-radius:5px;font-size:.9em;
        font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+
+  /* ---------- cards ---------- */
   .rules{display:grid;gap:12px;margin-top:8px}
   .rule{
-    background:var(--card);border:1px solid var(--line);border-radius:10px;
-    padding:16px 18px;display:flex;gap:14px;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:16px 20px;display:flex;gap:14px;box-shadow:var(--shadow);
+    transition:transform .18s ease, box-shadow .18s ease;
   }
+  .rule:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
   .rule b.n{
-    color:var(--accent);font-size:15px;font-variant-numeric:tabular-nums;
-    flex:0 0 22px;opacity:.55;
+    color:var(--accent-2);font-size:15px;font-weight:800;
+    flex:0 0 24px;font-variant-numeric:tabular-nums;
   }
   .rule p{margin:0;font-size:15px}
-  .rule .why{display:block;color:var(--muted);font-size:13.5px;margin-top:4px}
+  .rule .why{display:block;color:var(--muted);font-size:13.5px;margin-top:5px}
+
+  /* ---------- whale ---------- */
+  .whale{display:flex;gap:14px;align-items:flex-start;margin:22px 0}
+  .whale img{
+    flex:0 0 auto;width:64px;height:64px;border-radius:50%;
+    border:3px solid #fff;box-shadow:0 4px 14px rgba(27,35,64,.18);background:#fff;
+  }
+  .w-body{
+    position:relative;flex:1 1 auto;background:#fff;border:2.5px solid var(--deep);
+    border-radius:20px;padding:14px 20px;box-shadow:var(--shadow);
+  }
+  .w-body::before{
+    content:"";position:absolute;left:-11px;top:24px;width:16px;height:16px;
+    background:#fff;border-left:2.5px solid var(--deep);border-bottom:2.5px solid var(--deep);
+    transform:rotate(45deg);border-radius:0 0 0 4px;
+  }
+  .w-name{
+    font-size:12px;font-weight:800;color:var(--accent-2);
+    letter-spacing:.1em;margin-bottom:4px;
+  }
+  .w-text{margin:0;font-size:14.5px}
+  .w-text b{color:var(--deep)}
+
+  /* ---------- code ---------- */
   pre{
     position:relative;background:var(--code-bg);color:var(--code-ink);
-    padding:18px;border-radius:10px;overflow-x:auto;font-size:13px;line-height:1.65;
-    font-family:ui-monospace,SFMono-Regular,Consolas,monospace;margin:14px 0;
+    padding:20px;border-radius:12px;overflow-x:auto;font-size:13px;line-height:1.7;
+    font-family:ui-monospace,SFMono-Regular,Consolas,monospace;margin:16px 0;
+    box-shadow:var(--shadow);
   }
-  pre .k{color:#7fd1b9}
-  .copy{
-    position:absolute;top:8px;right:8px;background:rgba(255,255,255,.14);color:#cfe;
-    border:none;border-radius:6px;padding:5px 10px;font-size:11px;cursor:pointer;
-    font-family:inherit;opacity:.7
-  }
-  .copy:hover{opacity:1;background:rgba(255,255,255,.24)}
-  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px}
-  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-  th{background:var(--accent-soft);font-weight:600;font-size:13.5px}
+
+  /* ---------- table ---------- */
+  table{width:100%;border-collapse:separate;border-spacing:0;margin:18px 0;font-size:14.5px;
+        background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;
+        box-shadow:var(--shadow)}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  th{background:linear-gradient(180deg,#eef1fb,#e7ebf9);font-weight:700;font-size:13.5px;color:var(--deep)}
+  tbody tr:hover td{background:#f7f9ff}
   td:first-child{white-space:nowrap}
+
   .flow{
-    background:var(--card);border:1px solid var(--line);border-radius:10px;
-    padding:22px;font-family:ui-monospace,Consolas,monospace;font-size:13px;
-    line-height:2;overflow-x:auto;color:#333
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:24px;font-family:ui-monospace,Consolas,monospace;font-size:13px;
+    line-height:2.05;overflow-x:auto;color:#333;box-shadow:var(--shadow);
   }
   .flow b{color:var(--accent)}
+
   .warn{
     background:var(--warn-soft);border-left:3px solid var(--warn);
-    padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:14.5px;
+    padding:14px 18px;border-radius:0 12px 12px 0;margin:18px 0;font-size:14.5px;
   }
   .warn b{color:var(--warn)}
+
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  @media(max-width:680px){.grid2{grid-template-columns:1fr}}
+  @media(max-width:720px){
+    .grid2{grid-template-columns:1fr}
+    .header-inner{flex-direction:column-reverse;text-align:center;gap:24px}
+    .header-art img{width:140px;height:140px}
+    header h1{font-size:27px}
+  }
   .pill{display:inline-block;background:var(--accent-soft);color:var(--accent);
-        border-radius:20px;padding:2px 10px;font-size:12.5px;margin-right:6px}
-  footer{padding:40px 24px 60px;color:var(--muted);font-size:13.5px;text-align:center;
-         border-top:1px solid var(--line)}
+        border-radius:100px;padding:2px 11px;font-size:12.5px;margin-right:6px;font-weight:600}
+
+  /* ---------- footer ---------- */
+  footer{
+    position:relative;padding:52px 24px 64px;color:var(--muted);font-size:13.5px;text-align:center;
+    border-top:1px solid var(--line);background:#fff;
+  }
+  footer .rua{
+    width:104px;height:104px;border-radius:20px;object-fit:contain;
+    box-shadow:var(--shadow);margin-bottom:12px;background:#fff;
+    transition:transform .2s ease;
+  }
+  footer .rua:hover{transform:scale(1.06) rotate(-3deg)}
+  footer .quote{color:var(--ink);font-size:14.5px;font-weight:600;margin:0 0 6px}
+  footer .fine{opacity:.75;font-size:12.5px}
+
   .files{list-style:none;padding:0;margin:16px 0}
-  .files li{background:var(--card);border:1px solid var(--line);border-radius:8px;
-            padding:12px 16px;margin:8px 0;font-size:14.5px}
+  .files li{background:var(--card);border:1px solid var(--line);border-radius:12px;
+            padding:13px 18px;margin:9px 0;font-size:14.5px;box-shadow:var(--shadow)}
   .files li b{font-family:ui-monospace,Consolas,monospace;color:var(--accent)}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="wrap">
-    <h1>环境搭建教程</h1>
-    <p>把 AI 短片生产线装到你自己的电脑上 · 模块一 Harness（DSH）／ 模块二 视频生成平台（ComfyUI / LibTV）</p>
-    <div class="meta">《AI短片工作流教程》的前置章 ｜ 面向新手 ｜ 每一步都有验收</div>
+  <div class="wrap header-inner">
+    <div class="header-text">
+      <span class="tag">AI 短片生产线 · 前置章</span>
+      <h1>环境搭建教程</h1>
+      <p class="sub">把 AI 短片生产线装到你自己的电脑上</p>
+      <div class="meta">
+        模块一 &nbsp;Harness（DSH）&nbsp;·&nbsp; 模块二 &nbsp;视频生成平台（ComfyUI / LibTV）<br>
+        面向新手 ｜ 每一步都有验收 ｜ 卡住了就交给鲸鱼娘帮你查
+      </div>
+    </div>
+    <div class="header-art">
+      <img src="assets/whale-girl.png" alt="鲸鱼娘">
+      <span class="badge">鲸鱼娘 · 本教程向导</span>
+    </div>
   </div>
+  <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,34 C220,64 430,2 720,26 C1010,50 1210,6 1440,30 L1440,60 L0,60 Z" fill="#f4f6fd"/>
+  </svg>
 </header>
 
 <nav>
@@ -148,8 +257,12 @@
 
   <p>两个模块都是 <span class="pill">0–5 六节</span>第 0 节只讲"这是什么、为什么"，不装任何东西；第 1–5 节一步一节，每节结尾有一个验收。</p>
 
-  <div class="warn">
-    <b>看到「✅ 验收」就停下来，做一遍再往下走。</b>跳过验收往下赶，是新手最常翻车的方式。
+  <div class="whale">
+    <img src="assets/whale-girl.png" alt="">
+    <div class="w-body">
+      <div class="w-name">鲸鱼娘</div>
+      <p class="w-text">我是这台 DSH 的看板娘。装环境这件事，<b>十个人里有八个是卡在"跳过验收"上</b>——所以看到「✅ 验收」就停下来做一遍，别往下赶。真卡住了也别去百度，把报错原样丢给 DSH，让我帮你查。</p>
+    </div>
   </div>
 </section>
 
@@ -183,7 +296,7 @@
 
 <section id="m1">
   <h2><span class="num">03</span>模块一 · Harness（以 DSH 为例）</h2>
-  <p class="lead">完整正文见 <code>01_Harness_DSH.md</code>。这里是路线图。</p>
+  <p class="lead">完整正文见 <a href="01_Harness_DSH.md"><code>01_Harness_DSH.md</code></a>。这里是路线图。</p>
 
   <div class="rules">
     <div class="rule"><b class="n">0</b><div><p>harness 是什么
@@ -198,6 +311,14 @@
       <span class="why">全新的网页界面没有选中工作区时，输入框是灰的、点不动——不是软件坏了。先「选择工作区」添加一个文件夹并选中它。</span></p></div></div>
     <div class="rule"><b class="n">5</b><div><p>以后遇到问题怎么办（本模块重点）
       <span class="why">不要自己百度报错，把报错原样丢给 DSH。这一节给了 5 个可直接复制的提问模板和三条提问纪律。</span></p></div></div>
+  </div>
+
+  <div class="whale">
+    <img src="assets/whale-girl.png" alt="">
+    <div class="w-body">
+      <div class="w-name">鲸鱼娘</div>
+      <p class="w-text">第 4 节那个灰输入框的坑，我见一个劝一个：<b>装完先别急着问问题，先把工作区选中</b>。输入框点不动不是你装坏了，是我还没被告诉"在哪个文件夹里干活"。</p>
+    </div>
   </div>
 
   <h3>必须记住的一条</h3>
@@ -216,7 +337,7 @@
 
 <section id="m2">
   <h2><span class="num">04</span>模块二 · 视频生成平台（ComfyUI / LibTV）</h2>
-  <p class="lead">完整正文见 <code>02_视频平台_ComfyUI与LibTV.md</code>。这里是路线图。</p>
+  <p class="lead">完整正文见 <a href="02_视频平台_ComfyUI与LibTV.md"><code>02_视频平台_ComfyUI与LibTV.md</code></a>。这里是路线图。</p>
 
   <div class="rules">
     <div class="rule"><b class="n">0</b><div><p>两类平台，不是二选一
@@ -260,8 +381,12 @@
   </table>
   <p>把分镜表加起来时一定要留余量，否则最后一定超时。</p>
 
-  <div class="warn">
-    <b>辟谣：LibTV 没有"本地部署版"。</b>它是纯云端平台（网页版 + 微软商店的 Windows 客户端）。网上流传的"LibTV 本地部署 / 满血破解版"不要照做——来路不明、有安全风险，也违反服务条款。想本地化就用 ComfyUI，这是两回事。
+  <div class="whale">
+    <img src="assets/whale-girl.png" alt="">
+    <div class="w-body">
+      <div class="w-name">鲸鱼娘</div>
+      <p class="w-text">关于 LibTV 我要认真说一句：<b>它没有"本地部署版"</b>。它是纯云端平台，网页版 + 微软商店的 Windows 客户端。网上那些"LibTV 本地部署 / 满血破解版"，来路不明、有安全风险，也违反服务条款——<b>别装</b>。想本地化就用 ComfyUI，这是两回事。</p>
+    </div>
   </div>
 </section>
 
@@ -328,27 +453,11 @@
 </main>
 
 <footer>
-  环境搭建教程 · 模块一 Harness（DSH）／ 模块二 视频生成平台（ComfyUI / LibTV）<br>
-  模型决定上限，环境决定你能不能用上那个上限。
+  <img class="rua" src="assets/rua.gif" alt="rua">
+  <p class="quote">装完了记得 rua 一下，好感度会涨。</p>
+  <div>环境搭建教程 ｜ 模块一 Harness（DSH）· 模块二 视频生成平台（ComfyUI / LibTV）</div>
+  <div class="fine" style="margin-top:8px">模型决定上限，环境决定你能不能用上那个上限。</div>
 </footer>
 
-<script>
-document.querySelectorAll('pre .copy').forEach(btn => {
-  btn.addEventListener('click', async () => {
-    const pre = btn.parentElement;
-    const text = pre.innerText.replace(/^复制\s*/, '');
-    try {
-      await navigator.clipboard.writeText(text);
-      btn.textContent = '已复制';
-    } catch {
-      const ta = document.createElement('textarea');
-      ta.value = text; document.body.appendChild(ta); ta.select();
-      document.execCommand('copy'); document.body.removeChild(ta);
-      btn.textContent = '已复制';
-    }
-    setTimeout(() => btn.textContent = '复制', 1400);
-  });
-});
-</script>
 </body>
 </html>
