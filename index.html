@@ -456,8 +456,8 @@
       </div>
       <div class="kpi">
         <div><b data-count="2">2</b><span>大部分</span></div>
-        <div><b data-count="12">12</b><span>小节</span></div>
-        <div><b data-count="3">3</b><span>条验收线</span></div>
+        <div><b data-count="9">9</b><span>小节</span></div>
+        <div><b data-count="4">4</b><span>步出片</span></div>
         <div><b data-count="12">12</b><span>Remotion 技能</span></div>
       </div>
     </div>
@@ -499,18 +499,15 @@
       <li><a href="#p1-1"><b>1.1</b>这一部分做什么</a></li>
       <li><a href="#p1-2"><b>1.2</b>为什么用 DSH</a></li>
       <li><a href="#p1-3"><b>1.3</b>装好 DSH</a></li>
-      <li><a href="#p1-4"><b>1.4</b>跑通第一个任务</a></li>
-      <li><a href="#p1-5"><b>1.5</b>做出第一段动画</a></li>
-      <li><a href="#p1-6"><b>1.6</b>卡住了怎么办</a></li>
+      <li><a href="#p1-4"><b>1.4</b>四步做出第一段动画</a></li>
+      <li><a href="#p1-5"><b>1.5</b>卡住了怎么办</a></li>
       <li class="toc-group">第二部分 · 视频生成</li>
       <li><a href="#p2-1"><b>2.1</b>这一部分做什么</a></li>
       <li><a href="#p2-2"><b>2.2</b>先看你的显卡</a></li>
       <li><a href="#p2-3"><b>2.3</b>装好 ComfyUI</a></li>
-      <li><a href="#p2-4"><b>2.4</b>出第一张图</a></li>
-      <li><a href="#p2-5"><b>2.5</b>出带声音的视频</a></li>
-      <li><a href="#p2-6"><b>2.6</b>工作流与云端</a></li>
+      <li><a href="#p2-4"><b>2.4</b>下载模型与放置</a></li>
       <li class="toc-group">收尾</li>
-      <li><a href="#accept"><b>✓</b>三条验收线</a></li>
+      <li><a href="#accept"><b>✓</b>验收线</a></li>
       <li><a href="#cheat"><b>★</b>速查卡</a></li>
       <li><a href="#files"><b>▤</b>文件索引</a></li>
     </ol>
@@ -526,7 +523,7 @@
     <div class="card rule reveal">
       <div>
         <p>第一部分 · 平面动画
-        <span class="why">用<b>代码</b>告诉电脑"第几秒出现什么、怎么动"，电脑按帧画出来。字幕、片头、图表、地图、信息图都属于这类。<b>不需要显卡。</b></span></p>
+        <span class="why">用<b>代码</b>告诉电脑"第几秒出现什么、怎么动"，电脑按帧画出来。字幕、片头、图表、地图都属于这类。<b>不需要显卡。</b></span></p>
       </div>
     </div>
     <div class="card rule reveal">
@@ -586,23 +583,22 @@
     <div class="card rule reveal"><b class="n">③</b><div><p>图表与数据动画
       <span class="why">柱状图一根根长起来、折线图从左往右画出来、数字滚动到最终值。</span></p></div></div>
     <div class="card rule reveal"><b class="n">④</b><div><p>地图与路径
-      <span class="why">一张示意图上，从 A 点画一条线到 B 点，中途点亮几个地标。这是《急救电话里的地图》里最核心的一段。</span></p></div></div>
+      <span class="why">一张示意图上，从 A 点画一条线到 B 点，中途点亮几个地标。</span></p></div></div>
     <div class="card rule reveal"><b class="n">⑤</b><div><p>信息图与示意
       <span class="why">楼内剖面、流程步骤、对比关系。凡是"要讲清一个结构"的地方都用得上。</span></p></div></div>
   </div>
 
   <h3 class="reveal">Remotion 是什么</h3>
   <p class="reveal"><b>Remotion</b> 是一个让"写代码"变成"做视频"的工具。你用普通网页技术描述每一帧长什么样，它按帧渲染，最后导出成 mp4。</p>
-
   <p class="reveal">听起来像程序员才用的东西，但它有三个对新手特别友好的特点：</p>
 
   <div class="grid2">
-    <div class="card rule reveal"><div><p>文字绝对准确<span class="why">"榕园小区东门"就是这六个字，不会错一个偏旁，也不会糊。这是 AI 生成画面永远做不到的。</span></p></div></div>
+    <div class="card rule reveal"><div><p>文字绝对准确<span class="why">"榕园小区东门"就是这六个字，不会错一个偏旁，也不会糊。</span></p></div></div>
     <div class="card rule reveal"><div><p>想改就改<span class="why">文案从"8 秒"改成"7 秒"，只要改一个数字重新渲染，而不是重新抽卡抽十遍。</span></p></div></div>
   </div>
 
   <div class="warn reveal">
-    <b>关键认知：你不需要自己会写代码。</b>这一部分真正的做法是——<b>你负责说清楚"要什么效果"，DSH 负责写代码和渲染。</b>你只要会描述画面，会判断结果对不对，就够了。这也是为什么这一部分要从装 DSH 开始。
+    <b>关键认知：你不需要自己会写代码。</b>这一部分真正的做法是——<b>你负责说清楚"要什么效果"，DSH 负责写代码和渲染。</b>你只要会描述画面，会判断结果对不对，就够了。
   </div>
 
   <div class="whale reveal">
@@ -618,9 +614,31 @@
   <div class="sec-head reveal"><span class="sec-num">1.2</span><h2>为什么用 DSH</h2></div>
   <p class="lead reveal">不是因为它唯一，而是因为在"让 AI 帮你写动画代码"这件事上，它现在的性价比最高。</p>
 
-  <p class="reveal">上一节说了，你不写代码、让 AI 写。那问题就来了：<b>哪个 AI 真的能写出跑得起来的动画代码？</b></p>
+  <h3 class="reveal">先说清楚 DSH 是什么</h3>
+  <p class="reveal"><b>DSH</b>（DeepSeek Harness）是一个"智能体工作台"。它本身不含智能——它把 DeepSeek 的模型接进来，然后给模型装上<b>手</b>（读写你的文件、运行命令）、<b>记忆</b>（记住这个项目）、<b>约束</b>（不许乱改你其他文件）和<b>调度</b>（把大任务拆成小步）。</p>
+  <p class="reveal">你可以把它理解成：<b>模型是发动机，DSH 是整台车。</b>光买一台发动机摆在院子里，哪儿也去不了。</p>
 
-  <p class="reveal">这件事比"聊天"难得多。聊天说错一句你可以忽略，但代码错一处，整个项目就报错、白屏、渲染不出来——它<b>不吃"差不多"</b>。所以能稳定干这活的模型很少。</p>
+  <h3 class="reveal">能力从哪来：插件生态</h3>
+  <p class="reveal">DSH 最特别的地方是<b>一切皆插件</b>——模型、工具、技能、界面，全都能换、能加。你装上什么插件，它就会什么。</p>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>插件类型</th><th>装上之后能做什么</th></tr>
+      <tr><td>技能（Skill）</td><td>把某一类活的做法教给它。比如 Remotion 的 12 个技能、字幕、地图动画、视频提示词写法</td></tr>
+      <tr><td>工具（Tool）</td><td>给它新的手脚：连数据库、调某个平台 API、操作 Office 文件、管理系统任务</td></tr>
+      <tr><td>界面（UI）</td><td>换主题、换皮肤、加侧边栏、加小挂件——本页右下角那只鲸鱼娘也是一种插件</td></tr>
+      <tr><td>模型（Model）</td><td>接 DeepSeek 官方，也接任何 OpenAI 兼容的服务</td></tr>
+    </table>
+  </div>
+
+  <p class="reveal">装插件不用改代码：界面里有插件市场，点一下装上，重启会话就能用。你也可以直接对它说"帮我写一个插件"，它会在「创造模式」里自己写、自己装、自己验证。</p>
+
+  <div class="warn reveal">
+    <b>插件的花样很多，光看文字说不清。</b>建议你装好 DSH 之后，去 <b>B 站或抖音</b>搜一下「<b>DeepSeek Harness</b>」或「<b>DSH 插件</b>」，看别人实际用起来是什么样——十分钟的视频顶你看这里十页字。看完再回来接着读。
+  </div>
+
+  <h3 class="reveal">那为什么偏偏是它做动画</h3>
+  <p class="reveal">让 AI 写动画代码，比聊天难得多。聊天说错一句你可以忽略，但代码错一处，整个项目就报错、白屏、渲染不出来——它<b>不吃"差不多"</b>。所以能稳定干这活的模型很少。</p>
 
   <div class="reasons">
     <div class="card reason reveal">
@@ -641,7 +659,7 @@
       <div class="ico">3</div>
       <div>
         <h4>DeepSeek 便宜，而且 DSH 把配套都做好了</h4>
-        <p>成本更低只是一方面。更关键的是 DSH 里<b>内置了整套 Remotion 技能</b>——写字幕、做地图、调转场、导出视频，都是现成的，你不用从零教它：</p>
+        <p>成本更低只是一方面。更关键的是 DSH 里<b>内置了整套 Remotion 技能</b>，你不用从零教它：</p>
         <div class="cloud">
           <span>remotion-create</span><span>remotion-markup</span><span>remotion-captions</span>
           <span>remotion-maps</span><span>remotion-multimedia</span><span>remotion-interactivity</span>
@@ -676,10 +694,6 @@
   <div class="sec-head reveal"><span class="sec-num">1.3</span><h2>装好 DSH</h2></div>
   <p class="lead reveal">三件东西：一个运行环境、一个账号密钥、一个安装包。</p>
 
-  <h3 class="reveal">先理解你要装的是什么</h3>
-  <p class="reveal"><b>DSH</b>（DeepSeek Harness）是一个"智能体工作台"。它本身不含智能——它把 DeepSeek 的模型接进来，然后给模型装上<b>手</b>（读写你的文件、运行命令）、<b>记忆</b>（记住这个项目）、<b>约束</b>（不许乱改你其他文件）和<b>调度</b>（把大任务拆成小步）。</p>
-  <p class="reveal">你可以把它理解成：<b>模型是发动机，DSH 是整台车，你看到的界面是仪表盘。</b>光买一台发动机摆在院子里，哪儿也去不了。</p>
-
   <h3 class="reveal">第 1 件：Node.js</h3>
   <p class="reveal">一个让电脑能跑这类程序的基础软件。打开 <a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a>，下载标着 <b>LTS</b> 的那个版本（长期支持版，最稳），双击一路默认装完。</p>
   <p class="reveal">装完验证：打开终端（Windows 叫"终端"或 PowerShell），输入下面两行，各按一次回车。能看到版本号就成功了。</p>
@@ -702,109 +716,104 @@ npm -v</pre>
   </div>
   <p class="reveal"><b>结论：用 A。</b>装不上或想换口味，再回来看 B。</p>
 
-  <h3 class="reveal">第一次启动与接模型</h3>
-  <p class="reveal">打开界面后（浏览器里是 <code>http://127.0.0.1:3080</code>），找到 <b>设置 → 模型</b>，把第 2 件拿到的 API Key 粘进去保存。</p>
-  <p class="reveal"><b>保存后立刻生效，不需要重启</b>——很多人改完以为要重启，白折腾半天。</p>
+  <h3 class="reveal">第一次打开：两件必须做的事</h3>
+  <div class="rules">
+    <div class="card rule reveal"><b class="n">1</b><div><p>接模型<span class="why">找到 <b>设置 → 模型</b>，把 API Key 粘进去保存。<b>保存后立刻生效，不需要重启</b>——很多人以为要重启，白折腾半天。</span></p></div></div>
+    <div class="card rule reveal"><b class="n">2</b><div><p>选工作区<span class="why">全新界面<b>没选工作区时输入框是灰的、点不动</b>，不是装坏了。点「选择工作区」→ 新建一个空文件夹（比如 <code>dsh-试验场</code>）→ 添加 → <b>再选中它</b>。添加和选中是两步，很多人漏掉第二步。</span></p></div></div>
+  </div>
+  <p class="reveal">输入框亮起来之后，先发一句最简单的试试，比如"<b>看看这个文件夹里有哪些文件，逐个告诉我用途</b>"。它能读出来，说明整条链路通了。</p>
 
+  <div class="warn reveal">
+    <b>顺手认识一下权限：</b>它真的能改你的文件，所以权限分三档——<code>read-only</code>（只看不改，最安全）、<code>workspace-write</code>（能改工作区，日常用这个）、<code>danger-full-access</code>（全盘可动，全自动时才用）。需要更高权限时它会先问你，<b>每次弹窗都值得看一眼它要干什么</b>。
+  </div>
+
+  <h3 class="reveal">必存的三个地址</h3>
   <div class="tbl-wrap reveal">
     <table>
-      <tr><th>必存的地址</th><th>URL</th><th>什么时候用</th></tr>
+      <tr><th>用途</th><th>URL</th><th>什么时候用</th></tr>
       <tr><td>官方快速开始</td><td>deepseek-harness.github.io/deepseek-harness/guide/quickstart</td><td>装之前对一眼，唯一必存的书签</td></tr>
       <tr><td>模型配置</td><td>deepseek-harness.github.io/deepseek-harness/guide/providers</td><td>要接别的模型或自有接口时</td></tr>
       <tr><td>源码仓库</td><td>github.com/deepseek-ai/deepseek-harness</td><td>看安全说明、提问题</td></tr>
     </table>
   </div>
 
-  <div class="warn reveal">
-    <b>DSH 处于开发者预览阶段</b>，官方明确说会有破坏兼容性的变更。装之前先打开官方快速开始页面对一眼，别照着半年前的截图装。
-  </div>
-
-  <p class="reveal"><b>✅ 验收：</b>终端里 <code>node -v</code> 和 <code>npm -v</code> 都能看到版本号；你手里有一个存好的 API Key；设置里已保存成功；你已经看到 DSH 的界面。</p>
+  <p class="reveal"><b>✅ 验收：</b><code>node -v</code> 和 <code>npm -v</code> 都能看到版本号；API Key 已保存；工作区已选中、输入框能打字；它能读到你文件夹里的文件。</p>
 </section>
 
 <section id="p1-4">
-  <div class="sec-head reveal"><span class="sec-num">1.4</span><h2>跑通第一个任务</h2></div>
-  <p class="lead reveal">这一节有个必踩的坑，先说它，能省你半小时。</p>
+  <div class="sec-head reveal"><span class="sec-num">1.4</span><h2>四步做出第一段动画</h2></div>
+  <p class="lead reveal">这是第一部分的核心。四步走完，你就有一条能重复用的生产线。</p>
 
-  <h3 class="reveal">坑：输入框是灰的、打不了字</h3>
-  <p class="reveal">全新安装的界面，在<b>没有选中任何"工作区"</b>时，输入框是灰的、点不动。多数人第一反应是"是不是装坏了"，<b>不是</b>——它只是不知道该在哪个文件夹里干活，所以拒绝开工。</p>
-
-  <div class="rules">
-    <div class="card rule reveal"><b class="n">1</b><div><p>点「选择工作区」<span class="why">有的版本叫"打开文件夹""添加工作区"，认准这个动作就行。</span></p></div></div>
-    <div class="card rule reveal"><b class="n">2</b><div><p>新建一个空文件夹当试验场<span class="why">建议专门建一个，比如叫 <code>dsh-试验场</code>，别一上来就对着重要文件操作。</span></p></div></div>
-    <div class="card rule reveal"><b class="n">3</b><div><p>添加它，然后**选中它**<span class="why">"添加"和"选中"是两步，很多人漏掉第二步，输入框还是灰的。</span></p></div></div>
-  </div>
-
-  <h3 class="reveal">发第一句话</h3>
-  <p class="reveal">输入框亮起来后，把下面任一句粘进去。建议先发第一条（只读，最安全）。</p>
-  <pre>看看这个文件夹里有哪些文件，把每个文件的用途用一句话告诉我。</pre>
-  <pre>帮我查一下 DeepSeek Harness 官方文档里怎么配置别的模型服务商，把要点列出来。</pre>
-
-  <h3 class="reveal">权限三档（这个必须懂）</h3>
-  <p class="reveal">权限不是刁难你，是因为<b>这个程序真的能改你的文件</b>。</p>
-  <div class="tbl-wrap reveal">
-    <table>
-      <tr><th>档位</th><th>能做什么</th><th>什么时候用</th></tr>
-      <tr><td>read-only</td><td>只看不改</td><td><b>最安全，先用它熟悉</b></td></tr>
-      <tr><td>workspace-write</td><td>能改当前工作区里的文件，工作区外碰不到</td><td><b>日常干活用这个</b></td></tr>
-      <tr><td>danger-full-access</td><td>全盘可动</td><td>只在全自动跑流程时用，用前必须清楚风险</td></tr>
-    </table>
-  </div>
-  <p class="reveal">需要更高权限时界面会先问你。<b>每次弹窗都值得看一眼它到底要干什么</b>——这习惯比记任何快捷键都有用。</p>
-
-  <h3 class="reveal">怎么算真的跑通了</h3>
-  <p class="reveal">一个很硬的判断标准：<b>它能真的读到你那个文件夹里的文件，并把内容说出来。</b></p>
-  <p class="reveal">验证方法：在试验场里放个文本文件，随便写一句话（比如"菠萝蜜是第 7 号暗号"），让它读出来。它准确复述，说明模型、工作区、读权限整条链路都通了。含糊其辞说明它没真读到，<b>别被流畅的语气骗过去</b>。</p>
-
-  <div class="warn reveal"><b>✅ 验收：</b>输入框能打字；发出去的任务返回了结果；你用一个自己写的小文件验证过"它真的读到了"。</div>
-</section>
-
-<section id="p1-5">
-  <div class="sec-head reveal"><span class="sec-num">1.5</span><h2>做出第一段动画</h2></div>
-  <p class="lead reveal">这是第一部分的成果所在。你不需要会写代码，你需要会说清楚要什么。</p>
-
-  <h3 class="reveal">先看它怎么工作</h3>
   <div class="flow reveal">
-你说的这一句话 → DSH 理解意图 → 调用 Remotion 技能 → 建项目 / 写代码 → 渲染 → 得到一个 mp4
-        ↑                                                        ↓
-        └────────────── 你说"字再大一点"，它去改 ────────────────┘
-  </div>
-  <p class="reveal">整个循环里，<b>你做两件事：描述效果、判断结果。</b>中间所有代码工作都是它做。</p>
+① 确认主题 &nbsp;&nbsp;→&nbsp;&nbsp; ② 生成文案 &nbsp;&nbsp;→&nbsp;&nbsp; ③ 挑选风格 &nbsp;&nbsp;→&nbsp;&nbsp; ④ 渲染成片<br>
+<span style="color:#68708f">说做什么 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 人审一遍 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 多方案挑一个 &nbsp;&nbsp;&nbsp; 出 mp4</span>
+</div>
 
-  <h3 class="reveal">第一句话怎么说</h3>
-  <p class="reveal">新手最容易犯的错是"帮我做个片头"——太笼统，它只能瞎猜。要给它三样东西：<b>时长、画面上有什么、怎么动</b>。</p>
+  <p class="reveal">这四步的顺序不能乱，而且<b>每一步都要你看过再往下</b>。跳过任何一步直接渲染，回来改的成本会翻好几倍。</p>
 
-  <p class="reveal">可以直接复制这句，把文字换成你自己的：</p>
-  <pre>我要做一段 5 秒的开场动画，1920×1080、30fps。
-深蓝色渐变背景，中央一行白色粗体大字"说清位置"，
-从上往下落到中间停住，然后下面一行小字"让急救找到你"淡入。
-最后 1 秒画面完全静止。导出成 mp4。</pre>
+  <h3 class="reveal">第一步 · 确认主题</h3>
+  <p class="reveal">一句话说清三件事：<b>做什么内容、多长、给谁看</b>。下面是真实用过的一句，可以直接改：</p>
+  <pre>用 Remotion 做一段 10 秒内的动画，核心内容是科普报警急救时如何正确说清位置。</pre>
+  <p class="reveal">它接到这句之后，会自己去查 Remotion 的写法、确认运行环境、建好项目骨架。<b>你不用管这些。</b></p>
 
-  <p class="reveal">它接下来会问你的东西，通常是这几种——提前知道就不会慌：</p>
+  <h3 class="reveal">第二步 · 生成文案</h3>
+  <p class="reveal">关键动作是：<b>先让它写文案，人审过了再往下。</b>别让它直接开始做画面。同一句话里加上要求：</p>
+  <pre>先将视频的文案写好，要通顺连贯，发给我看看。</pre>
+  <p class="reveal">它给你的东西大概长这样（这是真实产出的结构）：</p>
   <div class="tbl-wrap reveal">
     <table>
-      <tr><th>它可能问</th><th>你该答</th></tr>
-      <tr><td>用什么字体 / 什么颜色</td><td>说具体值最好，比如"思源黑体，纯白 #FFFFFF"。说不上来就说"你来定，要干净"</td></tr>
-      <tr><td>项目建在哪里</td><td>就建在当前工作区，别建到别处，否则后面找不到</td></tr>
-      <tr><td>要不要预览</td><td>要。预览能在浏览器里实时看，比反复导出快得多</td></tr>
+      <tr><th>屏</th><th>时间码</th><th>屏幕文案</th><th>画面动作</th></tr>
+      <tr><td>1</td><td>0.00–2.40s</td><td>地址说不清，救护车就在附近打转</td><td>地图上光点绕圈，找不到目标楼</td></tr>
+      <tr><td>2</td><td>2.40–5.40s</td><td>从大到小报：小区 → 楼栋 → 单元 → 门牌号</td><td>四个词依次点亮，地图逐级放大</td></tr>
+      <tr><td>3</td><td>5.40–7.80s</td><td>再补个显眼地标：超市、学校、地铁口</td><td>门牌旁弹出三个地标图标</td></tr>
+      <tr><td>4</td><td>7.80–10.0s</td><td>别急着挂电话，派人到路口接车</td><td>车灯打到路口，有人挥手</td></tr>
     </table>
   </div>
+  <p class="reveal"><b>你要审三件事：</b>① <b>字数够不够装进时长</b>——中文语速约每秒 4–5.5 字，10 秒最多约 55 字；② <b>连读顺不顺</b>——让它给一版"连读全文"，你自己念一遍；③ <b>每屏是不是一个完整意思</b>——别把一句话劈成两屏。</p>
+  <p class="reveal">不满意就直接说"第二屏太长，压到 12 字以内"，让它重排。</p>
 
-  <h3 class="reveal">怎么判断结果对不对</h3>
-  <div class="rules">
-    <div class="card rule reveal"><b class="n">①</b><div><p>文字对不对<span class="why">有没有错别字、有没有缺字。这是最优先检查的，因为改起来最便宜。</span></p></div></div>
-    <div class="card rule reveal"><b class="n">②</b><div><p>时长对不对<span class="why">说 5 秒就要 5 秒。多一秒少一秒都会影响后面拼接。</span></p></div></div>
-    <div class="card rule reveal"><b class="n">③</b><div><p>节奏对不对<span class="why">"停 1 秒"是不是真的停住了。太快看不清，太慢显得拖沓。</span></p></div></div>
+  <h3 class="reveal">第三步 · 挑选风格</h3>
+  <p class="reveal">这一步最容易被跳过，但它决定成片好不好看。<b>不要让它直接渲染，先要"多方案 + 每个方案一张例图"</b>：</p>
+  <pre>这个画面风格我不太喜欢，多给我几个风格，并且每个都渲染一张例图发给我看。</pre>
+  <p class="reveal">它会给你 2–4 个风格方案，每个方案包含下面这些，<b>看例图挑最顺眼的一个</b>：</p>
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>它会给你的</th><th>你看什么</th></tr>
+      <tr><td>色板（底色 / 正文色 / 强调色 / 警示色，都给色值）</td><td>整体是冷还是暖、强调色跳不跳</td></tr>
+      <tr><td>字体（标题用哪种、正文用哪种、数字用等宽）</td><td>中文有没有糊、数字好不好读</td></tr>
+      <tr><td>版式（安全区边距、每行最多几个字）</td><td>字太小看不清、太大压画面</td></tr>
+      <tr><td>动效节奏（进场、锁定各用什么曲线，禁止匀速）</td><td>看例图感觉是"顺滑"还是"生硬"</td></tr>
+      <tr><td>节拍（多少帧一拍，音效落在拍线上）</td><td>有没有踩点感</td></tr>
+    </table>
   </div>
-
-  <h3 class="reveal">第二句话：怎么改</h3>
-  <p class="reveal"><b>一次只改一个东西。</b>同时改字号和颜色，出来好看了你也不知道是哪句起的作用。直接说：</p>
-  <pre>字再大一点，其他都不要动。</pre>
-  <pre>背景颜色换成更深的藏蓝 #12183A，其他不动。</pre>
-  <pre>最后停住的时间改成 2 秒，其他不动。</pre>
+  <p class="reveal">选定之后说一句"<b>就选方案 A，按这个方案重新校对一遍分镜</b>"，它会产出一份正式分镜，逐段写清每一帧发生什么。</p>
 
   <div class="warn reveal">
-    <b>一个要提醒你的现实：</b>第一次跑，它很可能报错——缺依赖、端口被占、字体找不到。这<b>非常正常</b>，不是你的问题，也不是它笨。正确做法是把<b>完整报错原样贴回去</b>让它自己修，而不是自己上网搜。这一节真正的技能，是"把报错交出去"。
+    <b>风格这一步的诀窍：</b>不要说"好看一点"——它听不懂。要说具体的："<b>我要冷色调、医疗感、字少但大、动效干脆不要花哨</b>"。形容词越接近你想要的方向，第一版就越接近。
+  </div>
+
+  <h3 class="reveal">第四步 · 渲染成片</h3>
+  <p class="reveal">到这一步你只需要说"<b>渲染出来给我看</b>"。它会自己在工作区里建一个工程，结构大致是：</p>
+  <pre>你的项目/
+├── src/
+│   ├── index.jsx     ← 主画面（每一屏、每一帧都在这里）
+│   └── styles.jsx    ← 风格配色（第三步选的方案）
+├── public/assets/    ← 字体、音效文件
+└── package.json      ← 依赖清单</pre>
+  <p class="reveal">渲染可能要好几分钟，取决于时长和分辨率。<b>别在这时候催它</b>，等它报完成。</p>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>想做什么</th><th>就怎么说</th></tr>
+      <tr><td>先看单帧对不对</td><td>先渲染第 2 秒那一帧给我看（比渲染整段快得多）</td></tr>
+      <tr><td>改文案</td><td>第二屏的字改成"从大到小报：小区、楼栋、单元、门牌号"，其他不动</td></tr>
+      <tr><td>调节奏</td><td>第三屏停留太短，多给 0.5 秒，后面整体顺延</td></tr>
+      <tr><td>导出终版</td><td>按 1920×1080、30fps 导出完整 mp4</td></tr>
+    </table>
+  </div>
+
+  <div class="warn reveal">
+    <b>一个要提醒你的现实：</b>第一次跑，它很可能报错——缺依赖、端口被占、字体找不到。这<b>非常正常</b>，不是你的问题，也不是它笨。正确做法是把<b>完整报错原样贴回去</b>让它自己修。这一节真正的技能，是"把报错交出去"。
   </div>
 
   <div class="whale reveal">
@@ -815,11 +824,11 @@ npm -v</pre>
     </div>
   </div>
 
-  <div class="warn reveal"><b>✅ 验收：</b>你拿到了一段能播放的 mp4；里面的文字和你要求的一字不差；你至少成功地让它改过一次（说明这个循环闭环了）。</div>
+  <div class="warn reveal"><b>✅ 验收：</b>你走完了四步、拿到一段能播放的 mp4；文字和你要的一字不差；你至少成功让它改过一次（说明这个循环闭环了）。</div>
 </section>
 
-<section id="p1-6">
-  <div class="sec-head reveal"><span class="sec-num">1.6</span><h2>卡住了怎么办</h2></div>
+<section id="p1-5">
+  <div class="sec-head reveal"><span class="sec-num">1.5</span><h2>卡住了怎么办</h2></div>
   <p class="lead reveal">这一节是整份教程里最该反复回看的一节。</p>
 
   <p class="reveal">核心观念只有一句：<b>装环境这件事，不需要你自己扛——DSH 本身就是最好的排查工具。</b></p>
@@ -829,7 +838,7 @@ npm -v</pre>
   <pre>检查我电脑上 Node.js 和 npm 的版本，告诉我能不能跑 DSH</pre>
   <pre>我执行 XXX 时报了这个错：〈把完整报错原样粘贴在这里〉，帮我判断原因并给修复步骤</pre>
   <pre>告诉我 DSH 的配置文件和日志分别存在哪个目录，各自是干什么的</pre>
-  <pre>列出你现在能用的工具和技能，并告诉我哪些适合用来做视频</pre>
+  <pre>列出你现在能用的工具和技能，并告诉我哪些适合用来做动画</pre>
   <pre>按官方文档帮我一步步装好 ComfyUI，每一步都要告诉我该点哪里</pre>
 
   <h3 class="reveal">三条提问纪律</h3>
@@ -875,7 +884,6 @@ npm -v</pre>
       <tr><td>花钱方式</td><td class="win">电费 + 显卡（一次性）</td><td class="lose">按积分计费，用多少付多少</td></tr>
       <tr><td>出片速度</td><td class="lose">一条 10–40 分钟</td><td class="win">几分钟</td></tr>
       <tr><td>模型新旧</td><td class="lose">要自己下、自己配</td><td class="win">永远是最新的</td></tr>
-      <tr><td>素材隐私</td><td class="win">不出本机</td><td class="lose">要上传</td></tr>
       <tr><td>适合</td><td>要出几十条、要反复调</td><td>试创意、出单条、没显卡</td></tr>
     </table>
   </div>
@@ -946,8 +954,8 @@ npm -v</pre>
 </section>
 
 <section id="p2-4">
-  <div class="sec-head reveal"><span class="sec-num">2.4</span><h2>出第一张图</h2></div>
-  <p class="lead reveal">先出图再出视频。图的成本只有视频的百分之一，用来验证"模型装对了没有"最划算。</p>
+  <div class="sec-head reveal"><span class="sec-num">2.4</span><h2>下载模型与放置</h2></div>
+  <p class="lead reveal">这一节只做一件事：把模型下对、放对。放对了，后面才谈得上出图。</p>
 
   <h3 class="reveal">模型放在哪（最容易错的一张表）</h3>
   <p class="reveal">路径都是相对 ComfyUI 根目录。<b>放错目录 = 界面里找不到 = 你以为没装上。</b></p>
@@ -963,133 +971,57 @@ npm -v</pre>
       <tr><td>工作流 .json</td><td>不用放目录</td><td><b>直接拖进界面</b></td></tr>
     </table>
   </div>
-  <p class="reveal">放完<b>必须刷新界面</b>（按 F5 或界面里的刷新按钮），不然下拉框里看不到新模型。</p>
 
   <h3 class="reveal">配套素材从哪来</h3>
   <p class="reveal">本教程配套的模型和工作流文件统一放在网盘：<b>〈网盘链接待补〉</b>。下载后按上面的表逐个放进对应目录。</p>
-  <p class="reveal">国内下载模型走镜像会快很多：模型发布在 <code>Comfy-Org/MiniMax-H3</code> 仓库，把地址里的 <code>huggingface.co</code> 换成 <code>hf-mirror.com</code> 即可。<b>光文本编码器一个文件就 15.7 GB</b>，下载慢是正常的，断了续传。</p>
 
-  <h3 class="reveal">跑通第一张图</h3>
-  <div class="rules">
-    <div class="card rule reveal"><b class="n">1</b><div><p>选模型<span class="why">界面左上方的"加载检查点"节点里选你刚放进去的模型。</span></p></div></div>
-    <div class="card rule reveal"><b class="n">2</b><div><p>填提示词<span class="why">正向写你要什么（"一个中年男人站在路口"），负向写你不要什么。</span></p></div></div>
-    <div class="card rule reveal"><b class="n">3</b><div><p>点 Queue / Run<span class="why">等一会儿，图会出现在右边的预览里。</span></p></div></div>
+  <p class="reveal">如果网盘不全，也可以自己下。模型发布在 <code>Comfy-Org/MiniMax-H3</code> 仓库。<b>国内直连 HuggingFace 很慢，把地址里的 <code>huggingface.co</code> 换成 <code>hf-mirror.com</code></b> 再下载，通常会快很多。</p>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>要下什么</th><th>大概多大</th><th>心理准备</th></tr>
+      <tr><td>Qwen3-VL 32B 文本编码器</td><td><b>15.7 GB</b></td><td>单个最大的一件，下它最耗时</td></tr>
+      <tr><td>视频 VAE（int8 量化版）</td><td>2.8 GB</td><td>显存紧张就用这个</td></tr>
+      <tr><td>FL2V Turbo LoRA</td><td>2.0 GB</td><td>用来 8 步快速出小样</td></tr>
+      <tr><td>音频 VAE</td><td>0.6 GB</td><td>视频要带声音就得有</td></tr>
+    </table>
   </div>
+  <p class="reveal">以上只是<b>配套件</b>，视频主权重（fl2va / ref2va）另算，<b>合计远超 20GB</b>。所以前面 2.2 才反复强调硬盘要留 100G。下载慢是正常的，断了就续传，别反复从头下。</p>
+
+  <h3 class="reveal">放完之后必须做的一步</h3>
+  <p class="reveal"><b>刷新界面</b>（按 F5 或点界面里的刷新按钮）。ComfyUI 不会自动发现新文件，不刷新的话下拉框里永远看不到你刚放进去的模型。</p>
 
   <div class="warn reveal">
-    <b>一个必须记住的区别：不是所有模型都有"负向提示词"。</b>传统出图模型（SD 类）有负向通道，可以写"不要什么"；但 <b>MiniMax H3 这类视频模型根本没有负向通道<b>——写 <code>no text</code> 之类的否定词反而会把概念喂给它，真的画出来。同一张界面里两套写法，务必看清楚模型说明。</b>
+    <b>常见对不上号的情况：</b>文件明明放好了，下拉框里还是没有——九成是<b>放错目录</b>（比如把视频模型放进了 <code>checkpoints</code>）或者<b>没刷新</b>。把目录结构和文件名截图丢给 DSH，让它帮你核对，比自己猜快得多。
   </div>
 
-  <div class="warn reveal"><b>✅ 验收：</b>你能出一张图；并且能在界面里把当前工作流保存成 <code>.json</code> 文件。</div>
-</section>
-
-<section id="p2-5">
-  <div class="sec-head reveal"><span class="sec-num">2.5</span><h2>出带声音的视频</h2></div>
-  <p class="lead reveal">这一节用 MiniMax H3，本地跑一段 4 秒左右、<b>自带对白和音效</b>的视频。</p>
-
-  <h3 class="reveal">前置条件</h3>
-  <p class="reveal">ComfyUI 版本要 <b>0.30.0 以上</b>。工作流不用自己连——界面里打开 <b>Template Library（模板库）→ Video</b>，选 <b>MiniMax H3</b> 的模板，直接就有了。</p>
-
-  <h3 class="reveal">三种模式选哪个</h3>
-  <div class="tbl-wrap reveal">
-    <table>
-      <tr><th>模式</th><th>你给它</th><th>用在什么镜头</th></tr>
-      <tr><td>Ref2VA（参考图）</td><td>参考图 1+N 张 + 文字</td><td>常规镜头，人物和场景都要控住</td></tr>
-      <tr><td>I2VA（首帧）</td><td>一张首帧 + 文字</td><td>摇镜、转场、接上一镜</td></tr>
-      <tr><td>FL2VA（首尾帧）</td><td>首帧 + 尾帧 + 文字</td><td>两端都要锁死的变化镜头</td></tr>
-    </table>
-  </div>
-
-  <h3 class="reveal">权重文件放置表（照抄，一个字都别改）</h3>
-  <div class="tbl-wrap reveal">
-    <table>
-      <tr><th>组件</th><th>文件名</th><th>目录</th></tr>
-      <tr><td>FL2VA 权重</td><td><code>minimax_h3_fl2va_pruned_int8_convrot.safetensors</code></td><td><code>models/diffusion_models/</code></td></tr>
-      <tr><td>Ref2VA 权重</td><td><code>minimax_h3_ref2va_pruned_int8_convrot.safetensors</code></td><td><code>models/diffusion_models/</code></td></tr>
-      <tr><td>文本编码器</td><td><code>qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors</code></td><td><code>models/text_encoders/</code></td></tr>
-      <tr><td>视频 VAE（量化）</td><td><code>minimax_h3_video_vae_int8_convrot.safetensors</code></td><td><code>models/vae/</code></td></tr>
-      <tr><td>音频 VAE</td><td><code>minimax_h3_audio_vae_fp32.safetensors</code></td><td><code>models/vae/</code></td></tr>
-      <tr><td>Turbo LoRA（加速）</td><td><code>minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors</code></td><td><code>models/loras/</code></td></tr>
-    </table>
-  </div>
-  <div class="warn reveal"><b>Ref2VA 必须配 <code>ref2va</code> 权重，I2V / T2V 用 <code>fl2va</code> 权重，两个文件不通用。</b>混用会直接跑不起来。</div>
-
-  <h3 class="reveal">显存不够怎么办</h3>
-  <p class="reveal">爆显存（红字里出现 out of memory）时，给启动命令加参数。便携版的做法：右键 <code>run_nvidia_gpu.bat</code> → 编辑，把参数追加到末尾。<b>从上往下一条一条试，别一次全加。</b></p>
-  <pre>--lowvram              # 低显存模式，把文本编码器挪到内存里跑
---reserve-vram 2       # 给系统留 2G 显存
---disable-smart-memory # 关掉智能显存管理，更省显存但慢
---cache-none           # 不缓存，最省内存</pre>
-
-  <h3 class="reveal">8G 显卡的现实预期</h3>
-  <p class="reveal">先跑 <b>10–15 步</b>或开 <b>Turbo LoRA</b> 出小样，只看构图和台词对不对；方向对了再上 <b>50 步</b>出终版；<b>一条 10–40 分钟</b>；<b>先出 2–3 条挑一条</b>，别憋"完美版"——废片率本来就高。</p>
-
-  <h3 class="reveal">时长不是整数（排分镜前必须知道）</h3>
-  <p class="reveal">时长会吸附到一个固定帧网格上，你要的秒数和实际得到的并不一样：</p>
-  <div class="tbl-wrap reveal">
-    <table>
-      <tr><th>你请求</th><th>实际帧数</th><th>实际时长</th></tr>
-      <tr><td>4s</td><td>90 或 107</td><td>3.75s 或 4.46s</td></tr>
-      <tr><td>5s</td><td>124</td><td>5.17s</td></tr>
-      <tr><td>6s</td><td>141</td><td>5.88s</td></tr>
-      <tr><td>8s</td><td>192</td><td>8.00s</td></tr>
-    </table>
-  </div>
-  <p class="reveal">排分镜时要按这张表算余量，否则最后一定超时。</p>
-
-  <p class="reveal">输出规格照这个走：<b>24 fps</b>（原生帧率，别用 30fps 时间线）、<b>必带音轨</b>（32kHz 立体声，对白+音效+环境音同轨）、画布常用 <code>1344×768</code> 或 <code>1504×832</code>。</p>
-
-  <div class="warn reveal"><b>✅ 验收：</b>你能用模板跑出一条 4 秒左右、<b>有画面也有声音</b>的视频。</div>
-</section>
-
-<section id="p2-6">
-  <div class="sec-head reveal"><span class="sec-num">2.6</span><h2>工作流与云端</h2></div>
-  <p class="lead reveal">最后一节：怎么复用别人的成果，以及云端平台怎么配合。</p>
-
-  <h3 class="reveal">导入别人做好的工作流</h3>
-  <p class="reveal"><b>工作流</b>就是一条已经连好的流水线，存成 <code>.json</code> 文件。用法很简单：<b>把文件直接拖进 ComfyUI 的浏览器窗口</b>，节点会自动铺开，参数也一起还原。</p>
-  <p class="reveal">如果某些节点显示<b>红色</b>或提示缺失，说明缺它依赖的自定义节点——用 Manager 搜装，或者把报错截图丢给 DSH 判断。</p>
-  <p class="reveal">工作流有两种格式：<b>普通保存</b>（给界面用，拖进来能看见节点）和 <b>API 格式</b>（给程序调用，只有数据）。新手只用第一种；第二种等你要和程序对接时才用。</p>
-
-  <h3 class="reveal">云端平台怎么配合</h3>
-  <p class="reveal"><a href="https://www.liblib.tv/" target="_blank" rel="noopener">LibTV</a> 是 LiblibAI 的一站式视频创作平台：浏览器打开就用，不需要显卡，把剧本→角色→分镜→片段放在同一个工作台里，接入了 Seedance、Wan、Kling、MiniMax H3 等一批主流模型，按积分付费。</p>
-
-  <div class="tbl-wrap reveal">
-    <table>
-      <tr><th>什么时候用本地 ComfyUI</th><th>什么时候用云端</th></tr>
-      <tr><td>要反复出几十条</td><td>没有显卡或显卡不够</td></tr>
-      <tr><td>要求角色跨镜一致</td><td>要试最新出的模型</td></tr>
-      <tr><td>素材不能出本机</td><td>快速验证一个创意值不值得做</td></tr>
-    </table>
-  </div>
+  <div class="warn reveal"><b>✅ 验收：</b>模型文件已按类型放进对应目录；刷新界面后，在对应的加载节点里能选中它们。</div>
 
   <div class="whale reveal">
     <img src="assets/whale-girl.png" alt="">
     <div class="bubble">
       <div class="who">鲸鱼娘</div>
-      <p>这里必须认真辟个谣：<b>LibTV 没有"本地部署版"。</b>它是纯云端平台，只有网页版和微软商店的 Windows 客户端。网上那些"LibTV 本地部署 / 满血破解版"，来路不明、有安全风险，也违反服务条款——<b>别装</b>。想本地化就用 ComfyUI，这是两回事。</p>
+      <p>到这里第二部分先告一段落——<b>模型放对，这一部分的地基就打好了。</b>接下来怎么用它出图、出带声音的视频、怎么套用别人做好的工作流，等我把后续几节补上再来。别急着乱试，先确认目录对了。</p>
     </div>
   </div>
-
-  <div class="warn reveal"><b>✅ 验收：</b>你能把一个 <code>.json</code> 工作流拖进界面并完整还原；能对着任意一个镜头说出"这个该用本地还是云端"的理由。</div>
 </section>
 
 <div class="divider"></div>
 
 <section id="accept">
-  <div class="sec-head reveal"><span class="sec-num">✓</span><h2>三条验收线</h2></div>
-  <p class="lead reveal">全做完的标准不是"看完了"，是这三条都能做到。</p>
+  <div class="sec-head reveal"><span class="sec-num">✓</span><h2>验收线</h2></div>
+  <p class="lead reveal">全做完的标准不是"看完了"，是这几条都能做到。</p>
 
   <div class="rules">
     <div class="card rule reveal"><b class="n">①</b><div><p>第一部分 · 平面动画
-      <span class="why">我能用 DSH 做出一段文字准确、时长对得上的 mp4，并且成功让它改过一次。</span></p></div></div>
-    <div class="card rule reveal"><b class="n">②</b><div><p>第二部分 · 出图
-      <span class="why">我能用 ComfyUI 出一张图，并保存一份工作流。</span></p></div></div>
-    <div class="card rule reveal"><b class="n">③</b><div><p>第二部分 · 出视频
-      <span class="why">我能跑出一条 4 秒左右、<b>带声音</b>的视频片段。</span></p></div></div>
+      <span class="why">我能用 DSH 走完"主题 → 文案 → 风格 → 渲染"四步，拿到一段文字准确、时长对得上的 mp4，并且成功让它改过一次。</span></p></div></div>
+    <div class="card rule reveal"><b class="n">②</b><div><p>第二部分 · 环境就位
+      <span class="why">我能打开 ComfyUI 界面，并且模型文件已经按类别放进了正确目录、刷新后能被识别。</span></p></div></div>
+    <div class="card rule reveal"><b class="n">③</b><div><p>通用 · 能自己排错
+      <span class="why">遇到报错时，我的第一反应是把它原样贴给 DSH，而不是打开搜索引擎。</span></p></div></div>
   </div>
 
-  <p class="reveal">三条都过了，就可以进《AI短片工作流教程》，开始做真正的片子了——那份教程讲的是分镜、提示词、拍摄顺序和合规。</p>
+  <p class="reveal">这三条过了，你就有了一条能重复用的生产线。再往后进《AI短片工作流教程》，学怎么做真正的片子——分镜、提示词、拍摄顺序和合规。</p>
 </section>
 
 <section id="cheat">
@@ -1120,6 +1052,9 @@ npm -v</pre>
     <li><b>说清你想要什么结果</b>，别只说哪里不对；</li>
     <li><b>一次只解决一个问题</b>。</li>
   </ol>
+
+  <h3 class="reveal">插件生态去哪看</h3>
+  <p class="reveal">装好 DSH 后，去 <b>B 站或抖音</b>搜「<b>DeepSeek Harness</b>」或「<b>DSH 插件</b>」，看别人实际用起来的效果。文字说不清的东西，十分钟视频就够了。</p>
 </section>
 
 <section id="files">
@@ -1127,13 +1062,13 @@ npm -v</pre>
   <ul class="files">
     <li class="reveal"><b>README.md</b> — 总览：两部分、阅读顺序、硬件清单、网盘素材、验收标准</li>
     <li class="reveal"><b>01_Harness_DSH.md</b> — 第一部分展开：DSH 是什么、装法、接模型、排错提问模板</li>
-    <li class="reveal"><b>02_视频平台_ComfyUI与LibTV.md</b> — 第二部分展开：选型、装 ComfyUI、模型落位、H3 视频、工作流</li>
+    <li class="reveal"><b>02_视频平台_ComfyUI与LibTV.md</b> — 第二部分展开：选型、装 ComfyUI、模型落位</li>
     <li class="reveal"><b>index.html</b> — 本页</li>
   </ul>
 
   <h3 class="reveal">和已有教程的关系</h3>
   <div class="grid2">
-    <div class="card rule reveal"><div><p>本教程<span class="why">把两条生产线装到电脑上，并各自做出第一个成品。</span></p></div></div>
+    <div class="card rule reveal"><div><p>本教程<span class="why">把两条生产线装到电脑上，并各自做出第一个成果。</span></p></div></div>
     <div class="card rule reveal"><div><p>《AI短片工作流教程》<span class="why">把片子真正做出来：分镜 → 提示词 → 出片 → 后期 → 合规。</span></p></div></div>
   </div>
 </section>
