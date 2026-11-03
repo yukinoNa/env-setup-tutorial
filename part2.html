@@ -30,7 +30,7 @@
       <span class="eyebrow"><i></i>Part Two</span>
       <h1>视频生成平台</h1>
       <p class="sub">用 ComfyUI 把 AI 画出来的画面变成视频。<b>这一部分需要一张 NVIDIA 显卡</b>，也要下载几十 G 模型，比第一部分重。</p>
-      <div class="hero-chips"><span>ComfyUI</span><span>4 小节</span><span>需要 8G 以上显存</span><span>后续持续补充</span></div>
+      <div class="hero-chips"><span>ComfyUI</span><span>5 小节</span><span>需要 8G 以上显存</span><span>后续持续补充</span></div>
     </div>
     <div class="hero-art">
       <span class="halo"></span>
@@ -51,6 +51,7 @@
       <li><a href="#p2-2"><b>2.2</b>先看你的显卡</a></li>
       <li><a href="#p2-3"><b>2.3</b>装好 ComfyUI</a></li>
       <li><a href="#p2-4"><b>2.4</b>下载模型与放置</a></li>
+      <li><a href="#p2-5"><b>2.5</b>官方提示词规范</a></li>
     </ol>
   </aside>
   <main>
@@ -244,9 +245,79 @@ hf download Comfy-Org/MiniMax-H3 vae/minimax_h3_audio_vae_fp32.safetensors --loc
     <img src="assets/whale-girl.png" alt="">
     <div class="bubble">
       <div class="who">鲸鱼娘</div>
-      <p>到这里第二部分先告一段落——<b>模型放对，这一部分的地基就打好了。</b>接下来怎么用它出图、出带声音的视频、怎么套用别人做好的工作流，等我把后续几节补上再来。别急着乱试，先确认目录对了。</p>
+      <p>模型放对，地基就打好了。<b>但下一节才是真正决定成片质量的东西——prompt 怎么写。</b>模型再好，prompt 写错也出不来能用的镜头。</p>
     </div>
   </div>
+</section>
+<section id="p2-5">
+  <div class="sec-head reveal"><span class="sec-num">2.5</span><h2>用官方提示词规范写 prompt</h2></div>
+  <p class="lead reveal">H3 的提示词不是"随便描述一段画面"，它有官方规定的固定结构。这一节教你把它拿到手——而且<b>不用你去翻 GitHub</b>。</p>
+
+  <h3 class="reveal">为什么这一节值得单独讲</h3>
+  <p class="reveal">同一个模型，按官方结构写的 prompt 和随口写的，出片质量差得很远。因为 H3 是"多模态参考生成"，它需要读懂很多件事：哪张图是人物、哪张是场景、哪些特征必须保留、哪些可以变、谁在说话、环境音是什么。</p>
+  <p class="reveal">这套写法官方已经整理成了规范，还做成了一个可以直接装进 AI 的<b>技能（skill）</b>——装上去之后，<b>你写 prompt 时它会自动按规范来，不用你背。</b></p>
+
+  <h3 class="reveal">它在哪里</h3>
+  <p class="reveal">在 MiniMax 官方的 GitHub 仓库 <code>MiniMax-AI/MiniMax-H3</code> 里，技能名叫 <code>h3-prompt-writing</code>。</p>
+
+  <h3 class="reveal">方法一 · 让你的 AI 自己去装（推荐）</h3>
+  <p class="reveal">这是这一节真正想教你的做法：<b>你不用自己去翻网站、找文件，直接让它去找、去装、去验证。</b>把下面这段复制给你的 DSH：</p>
+  <pre>去 GitHub 找 MiniMax H3 官方的提示词编写技能（仓库 MiniMax-AI/MiniMax-H3，技能名 h3-prompt-writing），
+把它装到当前工作区的技能目录里，装完把它的要点讲给我听。</pre>
+  <p class="reveal">它会自己完成：搜索仓库 → 下载 → 放进 <code>.agents/skills/</code> → 读一遍内容再向你汇报。<b>下不来或者装错了，就把报错原样发给它</b>——就是 1.5 节讲的那套办法。</p>
+
+  <h3 class="reveal">方法二 · 一条命令装</h3>
+  <p class="reveal">如果机器上装了 <code>skills</code> 命令行工具（不少 AI 编程环境自带）：</p>
+  <pre>npx skills add https://github.com/MiniMax-AI/MiniMax-H3 --skill h3-prompt-writing</pre>
+
+  <h3 class="reveal">方法三 · 手动下载</h3>
+  <p class="reveal">打开 <code>github.com/MiniMax-AI/MiniMax-H3</code>，进 <code>skills/h3-prompt-writing/</code> 目录，把里面的 <code>SKILL.md</code> 和 <code>references/</code> 一起下载，放进你工作区的 <code>.agents/skills/h3-prompt-writing/</code>。</p>
+  <div class="warn reveal">
+    <b>只复制 SKILL.md 是不够的。</b>它里面会引用 <code>references/</code> 下的示例文件，少了那些，AI 读到一半就断了。<b>整个目录一起搬。</b>
+  </div>
+
+  <h3 class="reveal">装完怎么确认它真的生效了</h3>
+  <p class="reveal">问它一句：</p>
+  <pre>你现在有哪些技能？h3-prompt-writing 在里面吗？在的话，把它的工作流简述给我。</pre>
+  <p class="reveal">如果它能说出六段结构、能说出"台词必须包在 <code>&lt;d&gt;</code> 标签里"这类细节，就说明装好并且读进去了。</p>
+
+  <h3 class="reveal">它到底规定了什么（六段速览）</h3>
+  <p class="reveal">你不需要背，知道"有这六块、顺序不能变"就够了，写的时候它自己会套：</p>
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>段</th><th>写什么</th></tr>
+      <tr><td><code>subject_definitions</code></td><td>每个可复用的主体一条，指明它来自第几张参考图</td></tr>
+      <tr><td><code>summary</code></td><td>一句话总述这一镜：时长、景别、地点、谁在做什么</td></tr>
+      <tr><td><code>retention_analysis</code></td><td>逐项说明参考图的哪些特征要保留、哪些可以改</td></tr>
+      <tr><td><code>detailed_description</code></td><td>逐镜的画面描述，350–500 英文词，按播放顺序写</td></tr>
+      <tr><td><code>overall_soundscape</code></td><td>环境音与物理声，并声明"没有第二个说话的人"</td></tr>
+      <tr><td><code>non_diegetic_music</code></td><td>有配乐就写配器与节奏，没有就写 <code>N/A</code></td></tr>
+    </table>
+  </div>
+
+  <h3 class="reveal">三条最容易踩的硬规则</h3>
+  <div class="rules">
+    <div class="card rule reveal"><b class="n">①</b><div><p>台词只能出现在 <code>&lt;d&gt;[Mandarin] 台词&lt;/d&gt;</code> 里
+      <span class="why">全篇别处一个字都不要提。不包标签，模型会把它当成"要显示在画面上的文字"，直接给你糊一屏乱码。</span></p></div></div>
+    <div class="card rule reveal"><b class="n">②</b><div><p>说话人用 <code>(S1)</code> <code>(S2)</code> 标记
+      <span class="why">跨镜复用同一个编号。而且一段里只能有一个人说话——两个人交替，口型必然串。</span></p></div></div>
+    <div class="card rule reveal"><b class="n">③</b><div><p>说完要写一个收口动作
+      <span class="why">比如"她闭上嘴，目光回到老人身上"。不写，模型会让她一直动嘴。</span></p></div></div>
+  </div>
+
+  <div class="warn reveal">
+    <b>还有一个和出图模型完全相反的点：H3 没有 negative 通道。</b>写 <code>no text</code>、<code>no subtitle</code> 这类否定词，等于把那个概念喂给编码器，反而更容易出现。<b>不提，才是真的不生成。</b>这条在 2.4 提过一次，写 prompt 时最容易忘。
+  </div>
+
+  <div class="whale reveal">
+    <img src="assets/whale-girl.png" alt="">
+    <div class="bubble">
+      <div class="who">鲸鱼娘</div>
+      <p>这一节真正的收获不是那六段结构，而是<b>一个做事方式</b>：官方有什么规范、社区有什么新玩法，都不用你自己去翻——<b>让它去找、去装、去读，你负责验收。</b>这个习惯养成了，你就不用等别人出教程了。</p>
+    </div>
+  </div>
+
+  <div class="warn reveal"><b>✅ 验收：</b>你能在自己的 AI 里问出 <code>h3-prompt-writing</code> 的六段结构；让它写 H3 prompt 时，台词确实包在 <code>&lt;d&gt;</code> 里。</div>
 </section>
 
     <nav class="pager">
