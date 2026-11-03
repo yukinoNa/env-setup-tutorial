@@ -495,15 +495,30 @@ tr:hover td{background:rgba(223,244,239,.42)}
   padding:32px 32px 30px;box-shadow:var(--sh-2);
   transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease;
 }
-.entry:hover{transform:translateY(-5px);box-shadow:var(--sh-3)}
+.entry{will-change:transform;transform-style:preserve-3d}
+.entry::after{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+  transition:opacity .35s ease;border-radius:inherit;
+  background:radial-gradient(440px circle at var(--mx,50%) var(--my,50%),rgba(46,211,183,.22),transparent 58%);
+}
+.entry:hover{
+  transform:translateY(-5px);
+  box-shadow:0 26px 64px rgba(8,22,15,.18),0 0 0 1px rgba(46,211,183,.38),0 0 40px rgba(46,211,183,.14);
+}
+.entry:hover::after{opacity:1}
+.entry:hover h3{color:var(--accent)}
+.entry:hover .no{transform:rotate(-7deg) scale(1.12)}
+.entry:hover .go{transform:translateX(8px) scale(1.15);color:var(--accent)}
+.entry:hover .meta span{border-color:#BFEDE2;background:rgba(223,244,239,.95)}
 .entry .no{
   display:inline-flex;align-items:center;justify-content:center;
   width:40px;height:40px;border-radius:12px;margin-bottom:20px;
   font-size:13px;font-weight:850;color:#04140F;letter-spacing:.02em;
   background:linear-gradient(150deg,var(--accent-3),var(--accent-2));
   box-shadow:0 6px 18px rgba(46,211,183,.34);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
 }
-.entry h3{margin:0 0 10px;font-size:22px;letter-spacing:-.022em;color:var(--ink);font-weight:850}
+.entry h3{margin:0 0 10px;font-size:22px;letter-spacing:-.022em;color:var(--ink);font-weight:850;transition:color .25s ease}
 .entry h3::before{display:none}
 .entry .desc{margin:0 0 16px;font-size:15px;color:var(--muted);line-height:1.76}
 .entry .desc b{color:var(--ink)}
@@ -517,6 +532,7 @@ tr:hover td{background:rgba(223,244,239,.42)}
 .entry .meta span{
   font-size:12.5px;color:var(--ink-2);background:rgba(223,244,239,.8);
   border:1px solid #CFEAE3;border-radius:9px;padding:4px 11px;font-weight:680;
+  transition:border-color .28s ease,background .28s ease;
 }
 .entry .go{position:absolute;right:28px;top:32px;font-size:20px;color:var(--accent-2);transition:transform .24s ease}
 .entry:hover .go{transform:translateX(5px)}

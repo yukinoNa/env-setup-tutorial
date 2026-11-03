@@ -138,6 +138,21 @@
     });
   }
 
+  /* ---------- 入口卡 3D 倾斜（鼠标位置驱动） ---------- */
+  document.querySelectorAll('.entry').forEach(function (card) {
+    gsap.set(card, { transformPerspective: 900, transformOrigin: 'center center' });
+    var rx = gsap.quickTo(card, 'rotationX', { duration: .45, ease: 'power2.out' });
+    var ry = gsap.quickTo(card, 'rotationY', { duration: .45, ease: 'power2.out' });
+    card.addEventListener('mousemove', function (e) {
+      var r = card.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width;
+      var py = (e.clientY - r.top) / r.height;
+      rx((0.5 - py) * 9);
+      ry((px - 0.5) * 11);
+    });
+    card.addEventListener('mouseleave', function () { rx(0); ry(0); });
+  });
+
   /* ---------- 页脚 rua ---------- */
   if (rua) {
     rua.addEventListener('mouseenter', function () {
