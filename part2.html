@@ -30,7 +30,7 @@
       <span class="eyebrow"><i></i>Part Two</span>
       <h1>视频生成平台</h1>
       <p class="sub">用 ComfyUI 把 AI 画出来的画面变成视频。<b>这一部分需要一张 NVIDIA 显卡</b>，也要下载几十 G 模型，比第一部分重。</p>
-      <div class="hero-chips"><span>ComfyUI</span><span>5 小节</span><span>需要 8G 以上显存</span><span>后续持续补充</span></div>
+      <div class="hero-chips"><span>ComfyUI</span><span>6 小节</span><span>需要 8G 以上显存</span><span>后续持续补充</span></div>
     </div>
     <div class="hero-art">
       <span class="halo"></span>
@@ -51,7 +51,8 @@
       <li><a href="#p2-2"><b>2.2</b>先看你的显卡</a></li>
       <li><a href="#p2-3"><b>2.3</b>装好 ComfyUI</a></li>
       <li><a href="#p2-4"><b>2.4</b>下载模型与放置</a></li>
-      <li><a href="#p2-5"><b>2.5</b>官方提示词规范</a></li>
+      <li><a href="#p2-5"><b>2.5</b>装节点包（插件）</a></li>
+      <li><a href="#p2-6"><b>2.6</b>官方提示词规范</a></li>
     </ol>
   </aside>
   <main>
@@ -250,7 +251,66 @@ hf download Comfy-Org/MiniMax-H3 vae/minimax_h3_audio_vae_fp32.safetensors --loc
   </div>
 </section>
 <section id="p2-5">
-  <div class="sec-head reveal"><span class="sec-num">2.5</span><h2>用官方提示词规范写 prompt</h2></div>
+  <div class="sec-head reveal"><span class="sec-num">2.5</span><h2>装节点包（插件）</h2></div>
+  <p class="lead reveal">打开一个现成工作流，看到几个方块变成<b>红色</b>或提示 <code>Node not found</code>——十有八九是缺插件。这一节讲怎么补。</p>
+
+  <h3 class="reveal">节点包是什么</h3>
+  <p class="reveal">ComfyUI 装好之后自带一批基础节点（加载模型、写提示词、出图、保存）。但很多工作流会用到别人写的<b>扩展节点（custom nodes）</b>，比如特殊的采样器、图像处理、批量工具、界面增强。这些不在本体里，要单独装。</p>
+  <div class="warn reveal">
+    <b>先说清楚一件事：H3 本身不需要额外节点包。</b>它是 ComfyUI 0.30.0 以上原生支持的，打开模板库（Template Library → Video）就能看到它的模板。会缺节点的，通常是<b>别人分享给你的工作流</b>——那些作者装了各种辅助插件。
+  </div>
+
+  <h3 class="reveal">装法一 · 在 ComfyUI 的插件管理器里装（推荐）</h3>
+  <p class="reveal">ComfyUI 有个官方的插件管理器（<b>ComfyUI Manager</b>），装插件不用碰命令行。步骤：</p>
+  <div class="rules">
+    <div class="card rule reveal"><b class="n">①</b><div><p>找到 Manager 按钮
+      <span class="why">在界面右上角或侧边菜单里，通常写着 <code>Manager</code> 或「管理器」。新版桌面版一般自带。</span></p></div></div>
+    <div class="card rule reveal"><b class="n">②</b><div><p>点「安装缺失节点」
+      <span class="why">Manager 里有 <code>Install Missing Custom Nodes</code> 这一项。它会把<b>当前打开的工作流缺了哪些插件</b>直接列出来——这是最省事的入口，不用你自己一个个查名字。</span></p></div></div>
+    <div class="card rule reveal"><b class="n">③</b><div><p>逐个点 Install
+      <span class="why">列表里每一项右边有安装按钮，点一下它自己下载。装完<b>必须重启 ComfyUI</b>（关掉那个黑窗口，重新双击启动），刷新页面没用。</span></p></div></div>
+  </div>
+  <p class="reveal">想主动搜某个插件，就在 <code>Install Custom Nodes</code> 里输入关键字搜索，比如 <code>impact</code>、<code>was</code>、<code>manager</code>。</p>
+
+  <h3 class="reveal">如果界面里根本没有 Manager</h3>
+  <p class="reveal">便携版可能没自带，手动装一次就好——它本身也是一个节点包，装进 <code>custom_nodes</code> 目录：</p>
+  <pre>cd &lt;你的ComfyUI目录&gt;\custom_nodes
+git clone https://github.com/ltdrdata/ComfyUI-Manager</pre>
+  <p class="reveal">国内直连 GitHub 常常失败（前面第一部分踩过这个坑），给它挂上代理：</p>
+  <pre>git -c http.proxy=http://127.0.0.1:7897 clone https://github.com/ltdrdata/ComfyUI-Manager</pre>
+  <p class="reveal">装完重启 ComfyUI，界面上就多出 Manager 按钮了。</p>
+
+  <h3 class="reveal">装法二 · 管理器里搜不到，就交给你的 AI</h3>
+  <p class="reveal">有些插件在 Manager 的索引里没有，或者名字对不上。这时候别自己硬猜——<b>把节点名发给你的 DSH，让它帮你查。</b>复制这段：</p>
+  <pre>我打开一个 ComfyUI 工作流，下面这些节点提示缺失或显示红色：
+&lt;把节点名逐行贴在这里&gt;
+请帮我查每个节点分别属于哪个插件包，告诉我 ComfyUI Manager 里搜什么名字；
+如果 Manager 里没有，帮我在 GitHub 找到对应的 custom_nodes 仓库，并告诉我装到哪个目录。</pre>
+  <p class="reveal">不知道节点叫什么也没关系——<b>把工作流截图发给它，或者把 ComfyUI 黑窗口里的红字整段贴过去</b>，它能从报错里读出来缺的是什么。</p>
+
+  <div class="whale reveal">
+    <img src="assets/whale-girl.png" alt="">
+    <div class="bubble">
+      <div class="who">鲸鱼娘</div>
+      <p>插件这件事有个反直觉的点：<b>不是装得越多越好。</b>每装一个，启动就慢一点，插件之间还可能互相打架。原则是<b>只装当前工作流真缺的那几个</b>，装完验证，跑通了就别再动它。</p>
+    </div>
+  </div>
+
+  <h3 class="reveal">三条纪律</h3>
+  <div class="rules">
+    <div class="card rule reveal"><b class="n">①</b><div><p>一次只装一个，装完重启验证
+      <span class="why">一次装五个，出问题你不知道是哪个引起的。</span></p></div></div>
+    <div class="card rule reveal"><b class="n">②</b><div><p>记下你装了什么
+      <span class="why">你把工作流发给别人时，对方也得装同样的插件才能打开。在项目里留一个 <code>插件清单.txt</code> 记着。</span></p></div></div>
+    <div class="card rule reveal"><b class="n">③</b><div><p>来源不明的不要装
+      <span class="why">custom_nodes 里的插件是能执行代码的。只从 Manager 索引或官方仓库装，别从网盘随手拿一个压缩包塞进去。</span></p></div></div>
+  </div>
+
+  <div class="warn reveal"><b>✅ 验收：</b>你能在 Manager 里看到「安装缺失节点」这个入口；打开一个工作流时，红色节点能通过它补齐，补齐后重启不再报错。</div>
+</section>
+
+<section id="p2-6">
+  <div class="sec-head reveal"><span class="sec-num">2.6</span><h2>用官方提示词规范写 prompt</h2></div>
   <p class="lead reveal">H3 的提示词不是"随便描述一段画面"，它有官方规定的固定结构。这一节教你把它拿到手——而且<b>不用你去翻 GitHub</b>。</p>
 
   <h3 class="reveal">为什么这一节值得单独讲</h3>
