@@ -27,6 +27,23 @@
     });
   });
 
+  /* ---------- 自动生成「下一节」链接（不依赖 GSAP） ---------- */
+  (function () {
+    var secs = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+    secs.forEach(function (sec, i) {
+      var next = secs[i + 1];
+      if (!next) return;
+      var h = next.querySelector('h2');
+      if (!h) return;
+      var a = document.createElement('a');
+      a.className = 'nextlink';
+      a.href = '#' + next.id;
+      a.innerHTML = '<span><span class="lab">下一节</span><span class="ttl">' +
+        h.textContent.trim() + '</span></span><span class="arw" aria-hidden="true">\u2192</span>';
+      sec.appendChild(a);
+    });
+  })();
+
   /* ---------- 页脚 rua（无 GSAP 时用 CSS） ---------- */
   var rua = document.getElementById('rua');
 
@@ -43,13 +60,13 @@
   gsap.registerPlugin(ScrollTrigger);
 
   /* ---------- 首屏入场 ---------- */
-  var heroBits = '.hero .eyebrow, .hero h1, .hero .sub, .hero-chips span, .kpi, .hero-art';
+  var heroBits = '.hero .eyebrow, .hero h1, .hero .sub, .hero-cta .btn, .kpi, .hero-art';
   if (document.querySelector('.hero h1')) {
     gsap.timeline({ defaults: { ease: 'power3.out' } })
       .from('.hero .eyebrow', { y: 16, autoAlpha: 0, duration: .55 })
       .from('.hero h1', { y: 24, autoAlpha: 0, duration: .75 }, '-=0.35')
       .from('.hero .sub', { y: 20, autoAlpha: 0, duration: .6 }, '-=0.5')
-      .from('.hero-chips span', { y: 14, autoAlpha: 0, duration: .45, stagger: .06 }, '-=0.42')
+      .from('.hero-cta .btn', { y: 14, autoAlpha: 0, duration: .45, stagger: .08 }, '-=0.42')
       .from('.kpi', { y: 18, autoAlpha: 0, duration: .6 }, '-=0.32')
       .from('.hero-art', { scale: .6, autoAlpha: 0, duration: .9, ease: 'back.out(1.6)' }, '-=0.75');
   }

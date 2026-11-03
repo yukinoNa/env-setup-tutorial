@@ -37,9 +37,9 @@
         这份教程只讲两件事：<b>用代码做平面动画</b>，和<b>用模型生成真实画面</b>。
         全程当作你从没碰过 AI——每个名词都会先解释，每一步都有验收。
       </p>
-      <div class="hero-chips">
-        <span>第一部分 · 平面动画（不需要显卡）</span>
-        <span>第二部分 · 视频生成（需要显卡）</span>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="part1.html">从第一部分开始 <span aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="#path">先看四步流程</a>
       </div>
       <div class="kpi">
         <div><b data-count="2">2</b><span>大部分</span></div>
@@ -54,10 +54,23 @@
       <span class="tagline">鲸鱼娘 · 本教程向导</span>
     </div>
   </div>
+  <div class="hero-foot">
+    <span class="scrollhint"><span class="arrow" aria-hidden="true">↓</span>向下滚动 · 两条路怎么选</span>
+  </div>
   <svg class="hero-wave" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true">
     <path d="M0,36 C230,68 430,4 720,28 C1010,52 1210,8 1440,32 L1440,64 L0,64 Z" fill="#f7f8fc"/>
   </svg>
 </header>
+
+<div class="band">
+  <div class="stack">
+    <span class="label">本教程用到</span>
+    <span class="chip"><img src="assets/brands/remotion.svg" alt="">Remotion</span>
+    <span class="chip"><img src="assets/brands/deepseek.png" alt="">DeepSeek Harness</span>
+    <span class="chip"><img src="assets/brands/comfyui.png" alt="">ComfyUI</span>
+    <span class="chip"><img src="assets/brands/libtv.png" alt="">LibTV</span>
+  </div>
+</div>
 
 <div class="layout" id="main">
   <aside class="toc" aria-label="页内导航">
@@ -82,7 +95,12 @@
       <span class="go">→</span>
       <span class="no">01</span>
       <h3>平面动画制作</h3>
-      <p class="desc">用<b>代码</b>告诉电脑"第几秒出现什么、怎么动"，电脑按帧画出来。字幕、片头、图表、地图都属于这类。<b>不需要显卡。</b></p>
+      <p class="desc">用<b>代码</b>告诉电脑"第几秒出现什么、怎么动"，电脑按帧画出来。<b>不需要显卡。</b></p>
+      <ul class="pts">
+        <li>装好 DSH，接上模型</li>
+        <li>走完四步：主题 → 文案 → 风格 → 渲染</li>
+        <li>拿到第一段能播的 mp4</li>
+      </ul>
       <div class="meta">
         <span>DSH + Remotion</span>
         <span>5 小节</span>
@@ -94,7 +112,12 @@
       <span class="go">→</span>
       <span class="no">02</span>
       <h3>视频生成平台</h3>
-      <p class="desc">用<b>提示词和参考图</b>让模型直接"画"出画面。人物、场景、光影属于这类。<b>需要一张 NVIDIA 显卡。</b></p>
+      <p class="desc">用<b>提示词和参考图</b>让模型直接"画"出画面。<b>需要一张 NVIDIA 显卡。</b></p>
+      <ul class="pts">
+        <li>先确认显卡够不够</li>
+        <li>装好 ComfyUI，界面能打开</li>
+        <li>把模型下对、放对目录</li>
+      </ul>
       <div class="meta">
         <span>ComfyUI / LibTV</span>
         <span>4 小节</span>
