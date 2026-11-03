@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第二部分 · 视频生成平台 · 环境搭建教程</title>
+<meta name="description" content="用 ComfyUI 做视频生成：显卡门槛、装 ComfyUI、模型下载与目录放置。">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<div id="progress"></div>
+
+<div class="topbar" id="topbar">
+  <div class="bar">
+    <a class="brand" href="index.html"><span class="dot"></span>环境搭建教程</a>
+    <nav class="topnav" id="topnav">
+      <a href="index.html">总览</a>
+      <a href="part1.html">第一部分</a>
+      <a href="part2.html" class="active">第二部分</a>
+      <a href="index.html#cheat">速查卡</a>
+    </nav>
+    <a class="gh" href="https://github.com/yukinoNa/env-setup-tutorial" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> 源码</a>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="eyebrow"><i></i>Part Two</span>
+      <h1>视频生成平台</h1>
+      <p class="sub">用 ComfyUI 把 AI 画出来的画面变成视频。<b>这一部分需要一张 NVIDIA 显卡</b>，也要下载几十 G 模型，比第一部分重。</p>
+      <div class="hero-chips"><span>ComfyUI</span><span>4 小节</span><span>需要 8G 以上显存</span><span>后续持续补充</span></div>
+    </div>
+    <div class="hero-art">
+      <span class="halo"></span>
+      <img src="assets/whale-girl.png" alt="鲸鱼娘">
+      <span class="tagline">鲸鱼娘 · 本教程向导</span>
+    </div>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,36 C230,68 430,4 720,28 C1010,52 1210,8 1440,32 L1440,64 L0,64 Z" fill="#f7f8fc"/>
+  </svg>
+</header>
+
+<div class="layout" id="main">
+  <aside class="toc" aria-label="本节目录">
+    <p class="toc-title">本节目录</p>
+    <ol id="toc">
+      <li><a href="#p2-1"><b>2.1</b>这一部分做什么</a></li>
+      <li><a href="#p2-2"><b>2.2</b>先看你的显卡</a></li>
+      <li><a href="#p2-3"><b>2.3</b>装好 ComfyUI</a></li>
+      <li><a href="#p2-4"><b>2.4</b>下载模型与放置</a></li>
+    </ol>
+  </aside>
+  <main>
+<section id="p2">
+  <div class="sec-head reveal" id="p2-1"><span class="sec-num">2.1</span><h2>这一部分做什么</h2></div>
+  <p class="lead reveal">先摆清它能干什么、不能干什么，省得你花两天装完发现用不上。</p>
+
+  <p class="reveal"><b>视频生成</b>和第一部分正好相反：画面不是画出来的，是模型"想"出来的。你给一段文字描述和几张参考图，它给你一段几秒钟的视频，<b>连声音一起生成</b>。</p>
+
+  <div class="grid2">
+    <div class="card rule reveal"><div><p>它擅长的<span class="why">人物表演与口型、真实光影、场景氛围、物体质感。凡是"像实拍"的东西，它都能给你。</span></p></div></div>
+    <div class="card rule reveal"><div><p>它做不了的<span class="why">画面里出现准确的文字（中文必错）、精确的 UI 界面、地图、分屏。这些<b>必须交给第一部分或后期软件</b>。</span></p></div></div>
+  </div>
+
+  <p class="reveal">还有一个必须接受的现实：<b>它有随机性。</b>同一句话跑十次，得到十段不完全一样的视频。所以工作方式是"抽 2–3 条挑一条"，而不是"一定要出某个精确画面"。</p>
+
+  <h3 class="reveal">本地跑还是用云端</h3>
+  <p class="reveal">AI 视频有两条路：<b>装在自己电脑上</b>（ComfyUI），或者<b>用别人的服务器</b>（LibTV 这类云端平台，打开网页就能用、按积分付费）。</p>
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>对比项</th><th>本地 · ComfyUI</th><th>云端 · LibTV 这类</th></tr>
+      <tr><td>要显卡吗</td><td class="lose">要，8G 显存起</td><td class="win">不要，浏览器就用</td></tr>
+      <tr><td>花钱方式</td><td class="win">电费 + 显卡（一次性）</td><td class="lose">按积分计费，用多少付多少</td></tr>
+      <tr><td>出片速度</td><td class="lose">一条 10–40 分钟</td><td class="win">几分钟</td></tr>
+      <tr><td>模型新旧</td><td class="lose">要自己下、自己配</td><td class="win">永远是最新的</td></tr>
+      <tr><td>适合</td><td>要出几十条、要反复调</td><td>试创意、出单条、没显卡</td></tr>
+    </table>
+  </div>
+  <p class="reveal"><b>结论：两者不是二选一。</b>本地跑量和控细节，云端追新模型和快速验证。没显卡的人先把云端用起来，等真需要批量做片了再考虑本地。</p>
+</section>
+
+<section id="p2-2">
+  <div class="sec-head reveal"><span class="sec-num">2.2</span><h2>先看你的显卡</h2></div>
+  <p class="lead reveal">这一节可能直接决定你要不要继续往下读。</p>
+
+  <p class="reveal">视频生成要靠显卡里的<b>显存</b>（VRAM）来跑模型。显存不够，程序会直接报错退出或慢到没法用。<b>这是硬门槛，绕不过去。</b></p>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>项目</th><th>最低要求</th><th>说明</th></tr>
+      <tr><td>系统</td><td>Windows 10 / 11（推荐）或 macOS</td><td>macOS 能装，但视频生成又慢又容易缺零件，建议只用来出图</td></tr>
+      <tr><td>显卡</td><td><b>NVIDIA 独显，显存 8G 起</b></td><td>12–16G 舒服，24G 才谈得上顺畅</td></tr>
+      <tr><td>内存</td><td>16G 起，32G 更稳</td><td>有个文本编码器文件就 15G 以上</td></tr>
+      <tr><td>硬盘</td><td><b>留 100G 以上</b></td><td>模型一个几十 G，放独立硬盘更省心</td></tr>
+    </table>
+  </div>
+
+  <div class="warn reveal">
+    <b>显存 8G 以下、或者只有核显（Intel 集显）的：先别上本地。</b>直接用 2.1 里说的云端平台。硬上本地的结果通常是下载了两天模型、跑三分钟出一堆报错，然后放弃——这个坑很多人都踩过。
+  </div>
+
+  <h3 class="reveal">怎么查自己的显卡</h3>
+  <p class="reveal">按 <code>Ctrl + Shift + Esc</code> 打开任务管理器 → 点「性能」→ 左侧点「GPU」→ 右上角看型号，下面看「专用 GPU 内存」。</p>
+  <p class="reveal">或者更省事：直接把这句话丢给装好的 DSH——</p>
+  <pre>我的显卡是 <b>&lt;型号&gt;</b>，显存 <b>&lt;数字&gt;</b>G。够跑 ComfyUI 做视频生成吗？给我一个直接的结论。</pre>
+
+  <div class="warn reveal"><b>✅ 验收：</b>你能说出自己电脑的显卡型号和显存大小；并且能明确判断"我该上本地还是先用云端"。</div>
+</section>
+
+<section id="p2-3">
+  <div class="sec-head reveal"><span class="sec-num">2.3</span><h2>装好 ComfyUI</h2></div>
+  <p class="lead reveal">ComfyUI 是一个"节点式"的画面生成界面：把一个个方块连起来，就成了一条生成流水线。</p>
+
+  <h3 class="reveal">先理解一个关键点</h3>
+  <div class="warn reveal">
+    <b>ComfyUI 本身不含任何模型。</b>你装的是一个"空画布"和"连线工具"，真正的画图能力来自另外下载的模型文件（几十 G）。所以装完软件只是第一步，<b>模型要单独下、单独放对目录</b>——这是新手第一大坑。
+  </div>
+
+  <h3 class="reveal">三种装法</h3>
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>装法</th><th>适合谁</th><th>说明</th></tr>
+      <tr><td><b>A 桌面版</b>（推荐）</td><td>新手</td><td>去 <a href="https://comfy.org/download/" target="_blank" rel="noopener">comfy.org/download</a> 下安装包，双击装完。它自己管 Python 环境，不用碰命令行。</td></tr>
+      <tr><td><b>B 便携版</b></td><td>想"整个搬走"的人</td><td>Windows 专用，解压即用，自带 Python。里面有 <code>run_nvidia_gpu.bat</code>，双击启动。</td></tr>
+      <tr><td><b>C 源码</b></td><td>要改代码的人</td><td>不展开，看官方文档</td></tr>
+    </table>
+  </div>
+
+  <h3 class="reveal">便携版的目录长什么样</h3>
+  <p class="reveal">不管装哪种，认识这个结构就不容易迷路：</p>
+  <pre>ComfyUI_windows_portable
+├── ComfyUI            ← 程序主体，模型和扩展都在这下面
+├── python_embeded     ← 自带的 Python，不要动
+├── update             ← 升级脚本
+├── run_nvidia_gpu.bat ← 双击启动（NVIDIA 显卡）
+└── run_cpu.bat        ← 双击启动（仅 CPU，极慢，最后手段）</pre>
+
+  <h3 class="reveal">启动成功的标志</h3>
+  <p class="reveal">浏览器访问 <code>http://127.0.0.1:8188</code>，能看到一张灰色画布和一堆方块节点，就成功了。</p>
+  <p class="reveal"><b>第一次启动会刷出一大堆警告</b>，正常，不影响使用。真报错了就把红字整段贴给 DSH 判断。</p>
+
+  <div class="warn reveal"><b>✅ 验收：</b>浏览器能打开 <code>127.0.0.1:8188</code> 并看到节点画布。</div>
+</section>
+
+<section id="p2-4">
+  <div class="sec-head reveal"><span class="sec-num">2.4</span><h2>下载模型与放置</h2></div>
+  <p class="lead reveal">这一节只做一件事：把模型下对、放对。放对了，后面才谈得上出图。</p>
+
+  <h3 class="reveal">模型放在哪（最容易错的一张表）</h3>
+  <p class="reveal">路径都是相对 ComfyUI 根目录。<b>放错目录 = 界面里找不到 = 你以为没装上。</b></p>
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>类型</th><th>目录</th><th>用来做什么</th></tr>
+      <tr><td>大模型 / 检查点</td><td><code>models/checkpoints/</code></td><td>出图的主模型</td></tr>
+      <tr><td>视频扩散模型</td><td><code>models/diffusion_models/</code></td><td>视频生成的主模型</td></tr>
+      <tr><td>文本编码器</td><td><code>models/text_encoders/</code></td><td>把提示词翻译成模型能懂的东西</td></tr>
+      <tr><td>VAE</td><td><code>models/vae/</code></td><td>决定画面色彩与解码质量</td></tr>
+      <tr><td>LoRA</td><td><code>models/loras/</code></td><td>风格微调或加速</td></tr>
+      <tr><td>自定义节点</td><td><code>custom_nodes/</code></td><td>装扩展功能</td></tr>
+      <tr><td>工作流 .json</td><td>不用放目录</td><td><b>直接拖进界面</b></td></tr>
+    </table>
+  </div>
+
+  <h3 class="reveal">配套素材从哪来</h3>
+  <p class="reveal">本教程配套的模型和工作流文件统一放在网盘：<b>〈网盘链接待补〉</b>。下载后按上面的表逐个放进对应目录。</p>
+
+  <p class="reveal">如果网盘不全，也可以自己下。模型发布在 <code>Comfy-Org/MiniMax-H3</code> 仓库。<b>国内直连 HuggingFace 很慢，把地址里的 <code>huggingface.co</code> 换成 <code>hf-mirror.com</code></b> 再下载，通常会快很多。</p>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>要下什么</th><th>大概多大</th><th>心理准备</th></tr>
+      <tr><td>Qwen3-VL 32B 文本编码器</td><td><b>15.7 GB</b></td><td>单个最大的一件，下它最耗时</td></tr>
+      <tr><td>视频 VAE（int8 量化版）</td><td>2.8 GB</td><td>显存紧张就用这个</td></tr>
+      <tr><td>FL2V Turbo LoRA</td><td>2.0 GB</td><td>用来 8 步快速出小样</td></tr>
+      <tr><td>音频 VAE</td><td>0.6 GB</td><td>视频要带声音就得有</td></tr>
+    </table>
+  </div>
+  <p class="reveal">以上只是<b>配套件</b>，视频主权重（fl2va / ref2va）另算，<b>合计远超 20GB</b>。所以前面 2.2 才反复强调硬盘要留 100G。下载慢是正常的，断了就续传，别反复从头下。</p>
+
+  <h3 class="reveal">放完之后必须做的一步</h3>
+  <p class="reveal"><b>刷新界面</b>（按 F5 或点界面里的刷新按钮）。ComfyUI 不会自动发现新文件，不刷新的话下拉框里永远看不到你刚放进去的模型。</p>
+
+  <div class="warn reveal">
+    <b>常见对不上号的情况：</b>文件明明放好了，下拉框里还是没有——九成是<b>放错目录</b>（比如把视频模型放进了 <code>checkpoints</code>）或者<b>没刷新</b>。把目录结构和文件名截图丢给 DSH，让它帮你核对，比自己猜快得多。
+  </div>
+
+  <div class="warn reveal"><b>✅ 验收：</b>模型文件已按类型放进对应目录；刷新界面后，在对应的加载节点里能选中它们。</div>
+
+  <div class="whale reveal">
+    <img src="assets/whale-girl.png" alt="">
+    <div class="bubble">
+      <div class="who">鲸鱼娘</div>
+      <p>到这里第二部分先告一段落——<b>模型放对，这一部分的地基就打好了。</b>接下来怎么用它出图、出带声音的视频、怎么套用别人做好的工作流，等我把后续几节补上再来。别急着乱试，先确认目录对了。</p>
+    </div>
+  </div>
+</section>
+
+    <nav class="pager">
+      <a class="prev" href="part1.html"><span class="lab">上一部分</span><span class="ttl">← 平面动画制作</span></a>
+      <a class="next" href="index.html"><span class="lab">完成</span><span class="ttl">回到总览 →</span></a>
+    </nav>
+  </main>
+</div>
+
+<footer>
+  <img class="rua" id="rua" src="assets/rua.gif" alt="rua">
+  <p class="quote">装完了记得 rua 一下，好感度会涨。</p>
+  <div class="meta">环境搭建教程 ｜ 第一部分 平面动画（DSH + Remotion）· 第二部分 视频生成（ComfyUI / LibTV）</div>
+  <div class="rule-line"></div>
+  <div class="fine">模型决定上限，环境决定你能不能用上那个上限。</div>
+</footer>
+
+<script src="assets/gsap.min.js"></script>
+<script src="assets/ScrollTrigger.min.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>
