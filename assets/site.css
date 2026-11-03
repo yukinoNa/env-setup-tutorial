@@ -420,6 +420,13 @@ th{
 td:first-child{color:var(--ink);font-weight:650}
 tr:hover td{background:rgba(223,244,239,.42)}
 .win{color:var(--ok);font-weight:800}
+
+/* 文件清单表：文件名很长，允许断行，其他列保持单行 */
+.tbl-files td:first-child{white-space:normal;min-width:220px}
+.tbl-files td:first-child code{white-space:normal;word-break:break-all;line-height:1.6}
+.tbl-files td:nth-child(2){white-space:nowrap;font-variant-numeric:tabular-nums}
+.tbl-files td:nth-child(3){white-space:nowrap}
+.tbl-files th:nth-child(2),.tbl-files th:nth-child(3){width:1%}
 .lose{color:var(--warn);font-weight:650}
 
 /* ============================ 流程图 ============================ */

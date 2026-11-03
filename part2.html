@@ -169,21 +169,67 @@
     </table>
   </div>
 
-  <h3 class="reveal">配套素材从哪来</h3>
-  <p class="reveal">本教程配套的模型和工作流文件统一放在网盘：<b>〈网盘链接待补〉</b>。下载后按上面的表逐个放进对应目录。</p>
-
-  <p class="reveal">如果网盘不全，也可以自己下。模型发布在 <code>Comfy-Org/MiniMax-H3</code> 仓库。<b>国内直连 HuggingFace 很慢，把地址里的 <code>huggingface.co</code> 换成 <code>hf-mirror.com</code></b> 再下载，通常会快很多。</p>
+    <h3 class="reveal">要下哪些文件（照这份清单）</h3>
+  <p class="reveal">下表是<b>实际跑通过的文件清单</b>，直接来自一台已经出片的机器。按"放到"那一列逐个放进去就行。</p>
 
   <div class="tbl-wrap reveal">
-    <table>
-      <tr><th>要下什么</th><th>大概多大</th><th>心理准备</th></tr>
-      <tr><td>Qwen3-VL 32B 文本编码器</td><td><b>15.7 GB</b></td><td>单个最大的一件，下它最耗时</td></tr>
-      <tr><td>视频 VAE（int8 量化版）</td><td>2.8 GB</td><td>显存紧张就用这个</td></tr>
-      <tr><td>FL2V Turbo LoRA</td><td>2.0 GB</td><td>用来 8 步快速出小样</td></tr>
-      <tr><td>音频 VAE</td><td>0.6 GB</td><td>视频要带声音就得有</td></tr>
+    <table class="tbl-files">
+      <tr><th>文件名</th><th>大小</th><th>放到</th><th>用途</th></tr>
+      <tr><td><code>minimax_h3_hybrid_fl2va_ref2va_b25-49-int8.safetensors</code></td><td><b>19.5 GB</b></td><td><code>diffusion_models/</code></td><td>H3 主权重，<b>混合版：首尾帧 + 参考图两用</b></td></tr>
+      <tr><td><code>minimax_h3_fl2va_pruned_int8_convrot.safetensors</code></td><td>19.5 GB</td><td><code>diffusion_models/</code></td><td>H3 主权重，单模式版（没有 hybrid 时才需要）</td></tr>
+      <tr><td><code>qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors</code></td><td><b>14.6 GB</b></td><td><code>text_encoders/</code></td><td>文本编码器，<b>单个最大的一件</b></td></tr>
+      <tr><td><code>minimax_h3_video_vae_int8_convrot.safetensors</code></td><td>2.6 GB</td><td><code>vae/</code></td><td>视频 VAE，显存紧张就用这个量化版</td></tr>
+      <tr><td><code>minimax_h3_audio_vae_fp32.safetensors</code></td><td>0.6 GB</td><td><code>vae/</code></td><td>音频 VAE，<b>视频要带声音就必须有</b></td></tr>
+      <tr><td><code>minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors</code></td><td>1.8 GB</td><td><code>loras/</code></td><td>Turbo LoRA，<b>8 步出小样</b>用</td></tr>
+      <tr><td><code>minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors</code></td><td>0.6 GB</td><td><code>loras/</code></td><td>Turbo LoRA 另一版，和上面二选一</td></tr>
     </table>
   </div>
-  <p class="reveal">以上只是<b>配套件</b>，视频主权重（fl2va / ref2va）另算，<b>合计远超 20GB</b>。所以前面 2.2 才反复强调硬盘要留 100G。下载慢是正常的，断了就续传，别反复从头下。</p>
+  <p class="reveal">核心几件加起来约 <b>40 GB</b>（不含那个备用的 19.5 GB 主权重）。这就是前面 2.2 反复说"硬盘留 100G"的原因。</p>
+
+  <div class="warn reveal">
+    <b>关于主权重的一条更新：</b>文件名里带 <code>hybrid</code> 的那个，把「首尾帧（fl2va）」和「参考图（ref2va）」两种模式合进了一个文件——<b>只下它一个就够</b>。只有在没有 hybrid 版本时，才需要按模式分别下不同的权重。
+  </div>
+
+  <h3 class="reveal">方式一 · 直接拿打包好的（推荐新手）</h3>
+  <p class="reveal">作者已经把模型、LoRA 和出图素材打包传到夸克网盘，共 <b>49 个文件 / 126.8 GB / 永久有效</b>：</p>
+  <div class="warn reveal">
+    <b><a href="https://pan.quark.cn/s/b56c72da3ce4" target="_blank" rel="noopener">pan.quark.cn/s/b56c72da3ce4</a></b> —— 需要登录夸克网盘才能展开文件列表。里面除了上面这张表，还有出图模型（Krea2）和一批风格 LoRA。
+  </div>
+  <p class="reveal">下载完按上表放好即可。<b>不要把网盘里的文件夹整个解压到 ComfyUI 根目录</b>——网盘的目录结构不是 ComfyUI 的 <code>models/</code> 结构，得一个目录一个目录对着放。</p>
+
+  <h3 class="reveal">方式二 · 从魔搭（ModelScope）下</h3>
+  <p class="reveal">魔搭是国内的模型站，<b>不需要科学上网</b>，速度通常比 HF 直连快得多。</p>
+  <p class="reveal"><b>网页下：</b>打开 <a href="https://modelscope.cn/models" target="_blank" rel="noopener">modelscope.cn/models</a>，搜 <code>MiniMax-H3</code>，进文件列表点单个文件下载。</p>
+  <p class="reveal"><b>命令行下（推荐，支持断点续传）：</b></p>
+  <pre>pip install -U modelscope
+
+# 下整个仓库到本地目录
+modelscope download --model Comfy-Org/MiniMax-H3 --local_dir D:\h3-download
+
+# 只下某一个文件
+modelscope download --model Comfy-Org/MiniMax-H3 vae/minimax_h3_audio_vae_fp32.safetensors --local_dir D:\h3-download</pre>
+
+  <h3 class="reveal">方式三 · 从 HuggingFace 下（必须走镜像）</h3>
+  <p class="reveal">国内直连 <code>huggingface.co</code> 基本下不动，<b>务必先设镜像</b>，否则会一直超时。</p>
+  <pre>pip install -U huggingface_hub
+
+# 关键一步：指向国内镜像（只在当前窗口有效）
+$env:HF_ENDPOINT = "https://hf-mirror.com"      # PowerShell
+set HF_ENDPOINT=https://hf-mirror.com           # CMD
+
+# 下整个仓库
+hf download Comfy-Org/MiniMax-H3 --local-dir D:\h3-download
+
+# 只下单个文件
+hf download Comfy-Org/MiniMax-H3 vae/minimax_h3_audio_vae_fp32.safetensors --local-dir D:\h3-download</pre>
+  <p class="reveal">不想装工具也行：浏览器打开 <a href="https://hf-mirror.com/" target="_blank" rel="noopener">hf-mirror.com</a>，搜 <code>Comfy-Org/MiniMax-H3</code>，进文件列表逐个点下载。</p>
+
+  <div class="warn reveal">
+    <b>LoRA 从哪来：</b>H3 的加速 LoRA（Turbo 系列）在 HF / 魔搭的 H3 相关仓库里能搜到；社区风格 LoRA 有大量在 Civitai 上。Civitai 内容尺度差异很大，<b>下载前看清用途和许可</b>，别把来源不明的文件直接塞进 <code>loras/</code>。
+  </div>
+
+  <h3 class="reveal">下载完的两个提醒</h3>
+  <p class="reveal"><b>① 文件名一个字都不要改。</b>ComfyUI 靠文件名识别，改名之后工作流里的引用会全部失效，你会在节点里看到一堆红线。<b>② 断了就续传，别从头下。</b>上面的命令行工具都支持断点续传。</p>
 
   <h3 class="reveal">放完之后必须做的一步</h3>
   <p class="reveal"><b>刷新界面</b>（按 F5 或点界面里的刷新按钮）。ComfyUI 不会自动发现新文件，不刷新的话下拉框里永远看不到你刚放进去的模型。</p>
